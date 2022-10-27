@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BINARCHPLATINUM</string>
+    <string name="text_add_new_expense">Add new expense</string>
+    <string name="fill_in_required_info">fill in required info</string>
+    <string name="text_date">Date</string>
+    <string name="text_category">Category</string>
+    <string name="text_name">Name</string>
+    <string name="text_expense">Expense</string>
+    <string name="text_submit">Submit</string>
 </resources>
