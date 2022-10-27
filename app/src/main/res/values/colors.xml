@@ -8,11 +8,11 @@
     <color name="white">#FFFFFFFF</color>
 
     <!--color scheme for the project-->
-    <color name="dark_blue_600">#2C2D37</color>
     <color name="dark_blue_200">#424459</color>
-    <color name="purple_600">#555CA3</color>
-    <color name="purple_400">#6E75BA</color>
+    <color name="dark_blue_600">#2C2D37</color>
     <color name="purple_200">#AEB3E9</color>
+    <color name="purple_400">#6E75BA</color>
+    <color name="purple_600">#555CA3</color>
     <color name="orange_600">#FF7520</color>
     <color name="red_400">#F36C6C</color>
     <color name="green_400">#58985E</color>
