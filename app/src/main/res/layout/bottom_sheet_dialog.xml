@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#424459">
+    tools:background="@color/dark_blue_200">
 
     <TextView
         android:id="@+id/tv_title_dialog"
@@ -12,6 +13,7 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="29dp"
         android:text="@string/text_add_new_expense"
+        android:fontFamily="@font/inter_font"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +26,7 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="9dp"
         android:text="@string/fill_in_required_info"
+        android:fontFamily="@font/inter_font"
         android:textColor="#D9D9D9"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,6 +38,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/text_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/text_input_layout_stroke_color"
+        app:hintTextColor="@color/green_400"
         android:textColorHint="@color/white"
         android:layout_marginTop="23dp"
         android:layout_marginStart="47dp"
@@ -45,6 +50,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_name"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -56,6 +64,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/text_expense"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/text_input_layout_stroke_color"
+        app:hintTextColor="@color/green_400"
         android:textColorHint="@color/white"
         android:layout_marginTop="30.82dp"
         android:layout_marginStart="47dp"
@@ -66,6 +76,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_expense"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -77,7 +90,10 @@
         android:layout_height="wrap_content"
         android:hint="@string/text_category"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        app:boxStrokeColor="@color/text_input_layout_stroke_color"
+        app:hintTextColor="@color/green_400"
         android:textColorHint="@color/white"
+        app:endIconTint = "@color/white"
         android:layout_marginTop="30.82dp"
         android:layout_marginStart="47dp"
         android:layout_marginEnd="45dp"
@@ -86,8 +102,12 @@
         app:layout_constraintTop_toBottomOf="@+id/til_expense">
 
         <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="@font/inter_font"
+            android:textColor="@color/white"
             android:inputType="none"
             />
 
@@ -99,30 +119,46 @@
         android:layout_height="wrap_content"
         android:hint="@string/text_date"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/text_input_layout_stroke_color"
+        app:hintTextColor="@color/green_400"
         android:textColorHint="@color/white"
         android:layout_marginTop="30.82dp"
         android:layout_marginStart="47dp"
         android:layout_marginEnd="45dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="14sp"
+        app:endIconDrawable="@drawable/ic_calender"
+        app:endIconTint="@color/white"
+        app:endIconMode="custom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_category">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:fontFamily="@font/inter_font"
+            android:focusableInTouchMode="false"
+            android:textColor="@color/white"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_expense"
+        android:id="@+id/btn_submit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="23.86dp"
         android:layout_marginBottom="33.8dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:backgroundTint="#FF7520"
         android:text="@string/text_submit"
+        android:textColor="@color/white"
         android:textSize="20sp"
+        android:fontFamily="@font/inter_font"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/til_date"
         app:layout_constraintStart_toStartOf="@+id/til_date"

@@ -48,6 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_add_new_expense"
+                    android:fontFamily="@font/inter_font"
                     android:textColor="#2C2D37"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_add_button_icon"

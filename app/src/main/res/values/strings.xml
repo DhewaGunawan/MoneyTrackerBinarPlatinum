@@ -7,4 +7,14 @@
     <string name="text_name">Name</string>
     <string name="text_expense">Expense</string>
     <string name="text_submit">Submit</string>
+
+    <string-array name="categories">
+        <item>Shopping</item>
+        <item>Sport</item>
+        <item>Food &amp; drink</item>
+        <item>Transportation</item>
+        <item>Groceries</item>
+        <item>Home Bills</item>
+        <item>Entertainment</item>
+    </string-array>
 </resources>
