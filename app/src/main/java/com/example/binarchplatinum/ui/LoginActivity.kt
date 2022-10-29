@@ -20,7 +20,9 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         supportActionBar?.hide()
+        setContentView(binding.root)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         userVM =
             ViewModelProvider(this, ViewModelFactory(application)).get(UserViewModel::class.java)
