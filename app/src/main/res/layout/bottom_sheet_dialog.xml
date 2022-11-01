@@ -78,6 +78,7 @@
             android:id="@+id/et_expense"
             android:textColor="@color/white"
             android:textSize="14sp"
+            android:inputType="number"
             android:fontFamily="@font/inter_font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -108,7 +109,9 @@
             android:textSize="14sp"
             android:fontFamily="@font/inter_font"
             android:textColor="@color/white"
+            android:clickable="true"
             android:inputType="none"
+            android:focusable="false"
             />
 
     </com.google.android.material.textfield.TextInputLayout>

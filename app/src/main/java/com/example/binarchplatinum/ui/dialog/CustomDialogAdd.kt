@@ -2,6 +2,7 @@ package com.example.binarchplatinum.ui.dialog
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +10,10 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.binarchplatinum.R
 import com.example.binarchplatinum.databinding.BottomSheetDialogBinding
+import com.example.binarchplatinum.utils.isNotNullOrEmpty
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.*
+
 
 class CustomDialogAdd : BottomSheetDialogFragment() {
     private lateinit var binding: BottomSheetDialogBinding
@@ -54,16 +57,31 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
     }
 
     private fun submitExpense() {
+        val isAllFieldsChecked = checkAllFields()
+        if (!isAllFieldsChecked) {
+            if (binding.etExpense.inputType == InputType.TYPE_CLASS_NUMBER){
 
-        //todo validation check if null or not
-        val name = binding.etName.text
-        val expense = binding.etExpense.text
-        val category = binding.autoCompleteTextView.text
-        val date = binding.etDate.text
+                val name = binding.etName.text
+                val expense = binding.etExpense.text
+                val category = binding.autoCompleteTextView.text
+                val date = binding.etDate.text
+                Toast.makeText(requireActivity(),"$name + $expense + $category + $date",Toast.LENGTH_SHORT).show()
+            } else
+                binding.tilExpense.error = "Number Only"
 
-        //todo save data to database with expense model?
-        Toast.makeText(requireActivity(),"$name + $expense + $category + $date",Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireActivity(),"All these field are required",Toast.LENGTH_SHORT).show()
+        }
+
     }
+
+    private fun checkAllFields(): Boolean {
+        return !(binding.etName.isNotNullOrEmpty("Name Can't be empty ") and
+                binding.etExpense.isNotNullOrEmpty("Expense Can't be empty") and
+                binding.autoCompleteTextView.isNotNullOrEmpty("Must select an category") and
+                binding.etDate.isNotNullOrEmpty("Date Can't be empty"))
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = BottomSheetDialogBinding.inflate(inflater,container,false)
