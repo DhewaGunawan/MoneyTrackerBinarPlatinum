@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.binarchplatinum.R
 import com.example.binarchplatinum.databinding.BottomSheetDialogBinding
+import com.example.binarchplatinum.utils.addCurrencyFormatter
 import com.example.binarchplatinum.utils.isNotNullOrEmpty
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.*
@@ -25,7 +26,7 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
         val arrayAdapter = ArrayAdapter(requireActivity(), R.layout.item_list_category, categories)
         binding.autoCompleteTextView.setAdapter(arrayAdapter)
         setOnClickListener()
-
+        binding.etExpense.addCurrencyFormatter("Rp. ")
 
     }
 
@@ -66,6 +67,7 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
                 val category = binding.autoCompleteTextView.text
                 val date = binding.etDate.text
                 Toast.makeText(requireActivity(),"$name + $expense + $category + $date",Toast.LENGTH_SHORT).show()
+                //TODO ADD TO DATABASE
             } else
                 binding.tilExpense.error = "Number Only"
 
