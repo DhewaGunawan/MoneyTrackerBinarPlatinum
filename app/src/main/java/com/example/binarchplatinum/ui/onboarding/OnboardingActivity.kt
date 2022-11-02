@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.binarchplatinum.R
-import com.example.binarchplatinum.ui.splashscreen.SplashScreenActivity
+import com.example.binarchplatinum.ui.onboarding.LoginActivity
 import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
 
@@ -48,10 +48,9 @@ class OnboardingActivity: AppIntro2() {
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
 
-//        TODO("add navigate to login activity")
-//        Intent(this@OnboardingActivity, SplashScreenActivity::class.java).also {
-//            startActivity(it)
-//        }
+        Intent(this@OnboardingActivity, LoginActivity::class.java).also {
+            startActivity(it)
+        }
     }
 
 
