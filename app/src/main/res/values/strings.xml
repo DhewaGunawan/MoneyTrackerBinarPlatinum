@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">BINARCHPLATINUM</string>
+    <string name="text_expenditura_logo">Expenditura Logo</string>
+    <string name="text_splash_desc_1">Better track your expenses with an ease of a click</string>
+    <string name="text_splash_desc_2">Better money management equals better life</string>
 </resources>
