@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity() {
     private fun setTitleName () {
         val name = intent.getStringExtra(EXTRA_NAME)
         binding.tvName.text = buildString {
-            append("")
             append(name)
+            append("Yorda")
         }
     }
 }
