@@ -4,21 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue_200"
+    android:background="@color/dark_blue_600"
     tools:context=".ui.LoginActivity">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/_8sdp"
-        android:fontFamily="@font/pixelated_font"
+        android:fontFamily="@font/inter_extra_bold"
         android:text="@string/text_title_input_name"
-        android:textColor="@color/black"
+        android:textColor="@color/off_white_400"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textSize="@dimen/_24sdp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@+id/et_name"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/et_name"
@@ -27,7 +28,7 @@
         android:layout_marginHorizontal="@dimen/_16sdp"
         android:background="@drawable/bg_edit_text_rounded_white"
         android:hint="@string/text_hint_name"
-        android:textColor="@color/black"
+        android:textColor="@color/off_white_400"
         android:padding="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,11 +40,28 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_24sdp"
         android:layout_marginEnd="@dimen/_44sdp"
-        android:layout_marginBottom="@dimen/_568sdp"
-        android:backgroundTint="@color/green_400"
+        android:layout_marginBottom="@dimen/_519sdp"
+        android:fontFamily="@font/inter_extra_bold"
+        android:backgroundTint="@color/orange_600"
         android:text="login"
+        android:textColor="@color/off_white_400"
+        android:padding="@dimen/_8sdp"
         app:layout_constraintStart_toStartOf="@id/et_name"
         app:layout_constraintEnd_toEndOf="@id/et_name"
         app:layout_constraintTop_toBottomOf="@id/et_name"/>
+
+    <Button
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_519sdp"
+        android:text="@string/button_sign_up"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnName"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

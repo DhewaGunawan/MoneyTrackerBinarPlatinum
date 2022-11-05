@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTitleName () {
-        val name = intent.getStringExtra(EXTRA_NAME)
+        val name = intent.getStringExtra(EXTRAS_NAME)
         if (name != null) {
             Log.d("TAG", name)
             binding.tvName.setText(name)
