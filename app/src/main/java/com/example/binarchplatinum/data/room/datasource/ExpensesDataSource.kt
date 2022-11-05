@@ -1,9 +1,11 @@
 package com.example.binarchplatinum.data.room.datasource
 
+import com.example.binarchplatinum.data.room.dao.ExpensesDao
 import com.example.binarchplatinum.data.room.entity.Expenses
+import com.example.binarchplatinum.data.room.model.ExpensesWithCategory
 
 interface ExpensesDataSource {
-    suspend fun getAllExpenses(): List<Expenses>
+    suspend fun getAllExpenses(): List<ExpensesWithCategory>
 
     suspend fun getExpensesByCategoryId(categoryId: Int): List<Expenses>
 
@@ -11,7 +13,23 @@ interface ExpensesDataSource {
 
     suspend fun insertExpense(expense: Expenses): Long
 
-    suspend fun deleteExpense(expense: Expenses): Int
+}
 
-    suspend fun updateExpense(expense: Expenses): Int
+class ExpensesDataSourceImpl(private val dao: ExpensesDao) : ExpensesDataSource {
+    override suspend fun getAllExpenses(): List<ExpensesWithCategory> {
+        return dao.getAllExpenses()
+    }
+
+    override suspend fun getExpensesByCategoryId(id: Int): List<Expenses> {
+        return dao.getExpensesByCategoryId(id)
+    }
+
+    override suspend fun getExpenseById(id: Int): Expenses {
+        return dao.getExpenseById(id)
+    }
+
+    override suspend fun insertExpense(expense: Expenses): Long {
+        return dao.insertExpense(expense)
+    }
+
 }
