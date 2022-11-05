@@ -1,11 +1,14 @@
 package com.example.binarchplatinum.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.annotation.NonNull
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.binarchplatinum.MainActivity
 import com.example.binarchplatinum.databinding.ActivityLoginBinding
+
 
 
 class LoginActivity : AppCompatActivity() {
@@ -21,16 +24,8 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun navigateToMenu(name : String) {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-
-        Toast.makeText(this, "Name : $name", Toast.LENGTH_SHORT).show()
-    }
-
     private fun setOnclickListener(){
-        binding.etName.setOnClickListener {
+        binding.btnName.setOnClickListener {
             val name = binding.etName.text.toString().trim()
             if(name.isEmpty()){
 
@@ -41,5 +36,9 @@ class LoginActivity : AppCompatActivity() {
 
             Toast.makeText(this, "Name", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun navigateToMenu(name: String) {
+        MainActivity.startActivity(this,name)
     }
 }
