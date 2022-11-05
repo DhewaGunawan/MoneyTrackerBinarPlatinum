@@ -1,33 +1,149 @@
 package com.example.binarchplatinum.ui.dialog
 
-import android.app.DatePickerDialog
 import android.os.Bundle
-import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.binarchplatinum.R
+import com.example.binarchplatinum.base.GenericViewModelFactory
+import com.example.binarchplatinum.constant.CommonConstant
+import com.example.binarchplatinum.data.room.entity.Category
+import com.example.binarchplatinum.data.room.entity.Expenses
+import com.example.binarchplatinum.data.room.model.ExpenseWithCategory
 import com.example.binarchplatinum.databinding.BottomSheetDialogBinding
-import com.example.binarchplatinum.utils.addCurrencyFormatter
-import com.example.binarchplatinum.utils.isNotNullOrEmpty
+import com.example.binarchplatinum.di.ServiceLocator
+import com.example.binarchplatinum.utils.*
+import com.example.binarchplatinum.wrapper.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.util.*
 
 
 class CustomDialogAdd : BottomSheetDialogFragment() {
+
+    private val viewModel: CustomDialogAddViewModel by lazy {
+        GenericViewModelFactory(CustomDialogAddViewModel(ServiceLocator.provideLocalRepository(requireContext()))).create(
+            CustomDialogAddViewModel::class.java
+        )
+    }
+
+    /*override fun onStart() {
+        super.onStart()
+        *//*viewModel.setIntentData(intent)*//*
+    }*/
+
     private lateinit var binding: BottomSheetDialogBinding
+    private var dateExpense : Long = 0
+    private val datePicker by lazy { DateTimePick() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val categories = resources.getStringArray(R.array.categories)
-        val arrayAdapter = ArrayAdapter(requireActivity(), R.layout.item_list_category, categories)
-        binding.autoCompleteTextView.setAdapter(arrayAdapter)
-        setOnClickListener()
-        binding.etExpense.addCurrencyFormatter("Rp. ")
+        observeData()
 
+        datePicker.onItemClick = {
+            dateExpense = it
+            val dateData = DateConverters.longToDate(it)
+            binding.etDate.setText(dateData)
+            Log.d("Test", "Converter: $dateExpense}")
+        }
+        setOnClickListener()
+        binding.etExpense.addCurrencyFormatter("Rp.")
+
+        getInitialData()
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = BottomSheetDialogBinding.inflate(inflater,container,false)
+        return binding.root
+    }
+
+    private fun getInitialData() {
+        viewModel.getInitialData()
+    }
+
+    private fun observeData() {
+        viewModel.initialDataResult.observe(this) {
+            when(it){
+                is Resource.Error -> {
+
+                }
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    val expense = it.data?.first
+                    val categories = it.data?.second
+                    val selectedPos = it.data?.third ?: 0
+                    initCategory(
+                        categories,
+                        selectedPos
+                    )
+                    Log.d("TAG",it.data.toString())
+                    bindDataToForm(expense)
+                }
+            }
+        }
+
+        viewModel.insertResult.observe(this) {
+            when (it) {
+                is Resource.Loading -> {
+                    LoadingDialog.startLoading(requireActivity())
+                   /* setFormEnabled(false)
+                    binding.pbForm.isVisible = true*/
+                }
+                is Resource.Success -> {
+                    LoadingDialog.hideLoading()
+                  /*  setFormEnabled(true)
+                    binding.pbForm.isVisible = false
+                    finish()*/
+
+                    Toast.makeText(requireActivity(), "Insert data Success", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
+                is Resource.Error -> {
+                    LoadingDialog.hideLoading()
+                    /*setFormEnabled(true)
+                    binding.pbForm.isVisible = false
+                    finish()*/
+                    Toast.makeText(requireActivity(), "Error when insert data", Toast.LENGTH_SHORT).show()
+                    dismiss()
+                }
+            }
+        }
+    }
+
+    private fun bindDataToForm(data: ExpenseWithCategory?) {
+        data?.let {
+
+            val dateLong = DateConverters.dateToTimestamp(data.expenses.date)
+            val dateString = DateConverters.longToDate(dateLong)
+
+            binding.etName.setText(data.expenses.name)
+            binding.etExpense.setText(data.expenses.price.toString())
+            binding.etDate.setText(dateString)
+
+        }
+    }
+
+    private fun initCategory(categories: List<Category>?, selectedPos: Int) {
+        val categoriesTitle = categories?.map { category -> category.categoryName }.orEmpty()
+        val adapter = ArrayAdapter(
+            requireContext(),
+            R.layout.item_list_category,
+            categoriesTitle
+        )
+        binding.autoCompleteTextView.setOnItemClickListener { _, _, pos, _ ->
+            viewModel.selectedCategoryId = categories?.get(pos)?.categoryId ?: CommonConstant.UNSET_ID
+        }
+        binding.autoCompleteTextView.setAdapter(adapter)
+        if(selectedPos != -1){
+            binding.autoCompleteTextView.setText(
+                binding.autoCompleteTextView.adapter.getItem(selectedPos).toString(),
+                false
+            )
+        }
     }
 
     private fun setOnClickListener() {
@@ -35,46 +151,58 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
             submitExpense()
         }
         binding.etDate.setOnClickListener {
-            pickDate()
+           datePicker.show(childFragmentManager)
         }
     }
 
-    private fun pickDate() {
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-        val datePickerDialog = DatePickerDialog(
-            requireActivity(),
-            { view, year, monthOfYear, dayOfMonth ->
-                val dat = (dayOfMonth.toString() + "-" + (monthOfYear + 1) + "-" + year)
-                binding.etDate.setText(dat)
-            },
-            year,
-            month,
-            day
-        )
-        datePickerDialog.show()
-    }
 
     private fun submitExpense() {
         val isAllFieldsChecked = checkAllFields()
+       /* */
         if (!isAllFieldsChecked) {
-            if (binding.etExpense.inputType == InputType.TYPE_CLASS_NUMBER){
+            if (isEditAction()) {
+                /*viewModel.updateNote(parseFormIntoEntity())*/
+            } else {
+                viewModel.insertNote(parseFormIntoEntity())
 
-                val name = binding.etName.text
-                val expense = binding.etExpense.text
-                val category = binding.autoCompleteTextView.text
-                val date = binding.etDate.text
-                Toast.makeText(requireActivity(),"$name + $expense + $category + $date",Toast.LENGTH_SHORT).show()
-                //TODO ADD TO DATABASE
+            }
+           /* if (binding.etExpense.inputType == InputType.TYPE_CLASS_NUMBER){
+                expense.let { expense ->
+                    expense?.name = name
+                    expense?.price = cleanPrice.toDouble()
+                    expense?.categoryId = positionCategory
+                    expense?.date = DateConverters.fromTimestamp(date)
+                }
             } else
-                binding.tilExpense.error = "Number Only"
+                binding.tilExpense.error = "Number Only"*/
 
         } else {
             Toast.makeText(requireActivity(),"All these field are required",Toast.LENGTH_SHORT).show()
         }
 
+    }
+
+    private fun parseFormIntoEntity(): Expenses {
+        val nameExpense = binding.etName.text.toString().trim()
+        val priceWithFormat  = binding.etExpense.text.toString().trim()
+        val cleanPrice = priceWithFormat.replace("[Rp,. ]".toRegex(), "")
+
+        return Expenses(
+            name = nameExpense,
+            price = cleanPrice.toDouble(),
+            categoryId = viewModel.selectedCategoryId,
+            date = DateConverters.fromTimestamp(dateExpense)
+        ).apply {
+            Log.d("TAG", this.toString())
+            if (isEditAction()) {
+                id = viewModel.expenseId
+            }
+        }
+
+    }
+
+    private fun isEditAction(): Boolean {
+        return viewModel.expenseId != CommonConstant.UNSET_ID
     }
 
     private fun checkAllFields(): Boolean {
@@ -84,9 +212,4 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
                 binding.etDate.isNotNullOrEmpty("Date Can't be empty"))
     }
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = BottomSheetDialogBinding.inflate(inflater,container,false)
-        return binding.root
-    }
 }

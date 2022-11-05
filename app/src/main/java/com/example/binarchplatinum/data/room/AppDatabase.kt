@@ -10,14 +10,14 @@ import com.example.binarchplatinum.data.room.dao.CategoriesDao
 import com.example.binarchplatinum.data.room.dao.ExpensesDao
 import com.example.binarchplatinum.data.room.entity.Category
 import com.example.binarchplatinum.data.room.entity.Expenses
-import com.example.binarchplatinum.utils.Converters
+import com.example.binarchplatinum.utils.DateConverters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 @Database(entities = [Expenses::class, Category::class], version = 1, exportSchema = true)
-/*@TypeConverters(Converters::class)*/
+@TypeConverters(DateConverters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun expensesDao(): ExpensesDao
     abstract fun categoriesDao(): CategoriesDao
@@ -25,8 +25,6 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
         //TODO name database?
         private const val DB_NAME = "Expenses.db"
-
-
         //menyimpan instance Database
         @Volatile
         private var INSTANCE: AppDatabase? = null

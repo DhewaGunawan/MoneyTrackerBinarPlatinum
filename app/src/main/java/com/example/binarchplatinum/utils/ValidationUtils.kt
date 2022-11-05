@@ -59,11 +59,11 @@ fun EditText.addCurrencyFormatter(currencyText: String) {
     })
 }
 
+fun String.monetize(): String = if (this.isEmpty()) "0" else DecimalFormat("#,###").format(this.replace("[^\\d]".toRegex(),"").toLong())
+
 interface MyTextWatcher: TextWatcher {
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 }
 
 
-fun String.monetize(): String = if (this.isEmpty()) "0"
-else DecimalFormat("#,###").format(this.replace("[^\\d]".toRegex(),"").toLong())

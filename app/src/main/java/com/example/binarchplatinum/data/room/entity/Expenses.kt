@@ -12,17 +12,17 @@ import java.util.*
 data class Expenses(
     //id autogenerate
     @PrimaryKey(autoGenerate = true)
-    val id : Int = 0,
+    var id : Int = 0,
 
     @ColumnInfo(name = "category_id")
-    var categoryId : Int = 0,
+    var categoryId : Int,
 
     @ColumnInfo(name = "name")
-    var name : String? =  null,
+    var name : String,
 
     @ColumnInfo(name = "price")
-    var price: Double = 0.0,
+    var price: Double,
 
     @ColumnInfo(name = "Date")
-    var date: Date? = null,
+    var date: Date
 ) : Parcelable
