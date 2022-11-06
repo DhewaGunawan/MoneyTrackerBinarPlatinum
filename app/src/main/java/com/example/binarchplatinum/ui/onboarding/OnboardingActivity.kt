@@ -5,19 +5,22 @@ import android.os.Build
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.binarchplatinum.MainActivity
 import com.example.binarchplatinum.R
-import com.example.binarchplatinum.ui.onboarding.LoginActivity
+import com.example.binarchplatinum.ui.login.LoginActivity
 import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
 
 class OnboardingActivity: AppIntro2() {
+    private val preference: UserPreference by lazy {
+        UserPreference(this@OnboardingActivity)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setupSliderFragment()
     }
-
 
     private fun setupSliderFragment() {
         isSkipButtonEnabled = false
@@ -48,8 +51,14 @@ class OnboardingActivity: AppIntro2() {
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
 
-        Intent(this@OnboardingActivity, LoginActivity::class.java).also {
-            startActivity(it)
+        if (preference.isSkipIntro()) {
+            Intent(this@OnboardingActivity, MainActivity::class.java).also {
+                startActivity(it)
+            }
+        } else {
+            Intent(this@OnboardingActivity, LoginActivity::class.java).also {
+                startActivity(it)
+            }
         }
     }
 
