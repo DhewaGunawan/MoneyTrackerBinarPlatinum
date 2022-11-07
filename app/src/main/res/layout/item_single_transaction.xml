@@ -19,10 +19,10 @@
 
         <ImageView
             android:id="@+id/iv_category"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_gravity="center"
-            android:layout_margin="15dp"
+            android:layout_margin="12dp"
             android:src="@drawable/ic_cat_shopping" />
     </androidx.cardview.widget.CardView>
 
@@ -49,9 +49,9 @@
         android:maxLines="1"
         android:scrollHorizontally="true"
         android:textColor="@color/off_white_400"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintLeft_toRightOf="@id/iv_ic_category"
-        app:layout_constraintRight_toLeftOf="@id/tv_transaction_amount"
+        app:layout_constraintRight_toLeftOf="@id/guideline"
         app:layout_constraintTop_toBottomOf="@id/tv_category"
         tools:text="Beliin kado ulang tahun kucing yang ke 1 tahun" />
 
@@ -70,18 +70,27 @@
         app:layout_constraintTop_toBottomOf="@id/tv_transaction_title"
         tools:text="26-11-2022" />
 
-    <TextView
-        android:id="@+id/tv_transaction_amount"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <TextView
+        android:id="@+id/tv_transaction_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/lexend_deca_extra_bold"
+        android:gravity="end"
+        android:maxLines="1"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="13sp"
         android:textStyle="bold"
+        android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/tv_transaction_title"
+        app:layout_constraintLeft_toRightOf="@id/guideline"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.3"
         tools:text="1200000" />
 </androidx.constraintlayout.widget.ConstraintLayout>
