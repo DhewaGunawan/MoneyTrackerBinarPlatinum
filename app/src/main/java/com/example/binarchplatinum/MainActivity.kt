@@ -3,7 +3,7 @@ package com.example.binarchplatinum
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.binarchplatinum.databinding.ActivityMainBinding
-import com.example.binarchplatinum.ui.dialog.CustomDialogAdd
+import com.example.binarchplatinum.pkg.home.ui.CustomDialogAdd
 
 class MainActivity : AppCompatActivity() {
 

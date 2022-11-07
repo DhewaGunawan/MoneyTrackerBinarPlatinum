@@ -1,4 +1,4 @@
-package com.example.binarchplatinum.ui.dialog
+package com.example.binarchplatinum.pkg.home.ui.viewmodel
 
 import android.content.Intent
 import androidx.lifecycle.MutableLiveData

@@ -27,4 +27,14 @@
         <item name="android:background">@drawable/layout_bg_add</item>
     </style>
 
+    <style name="Home.Tablayout" parent="TextAppearance.Design.Tab">
+        <item name="tabSelectedTextColor">@color/light_grey</item>
+        <item name="tabTextColor">@color/dark_grey</item>
+    </style>
+
+    <style name="Home.Tablayout.Text" parent="Base.Widget.Design.TabLayout">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
 </resources>

@@ -17,6 +17,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     private var _viewPagerAdapter: HomeViewPagerAdapter? = null
     private val viewPagerAdapter get() = _viewPagerAdapter!!
 
+    private val addExpenseBottomDialog by lazy {
+        CustomDialogAdd()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         actionBar?.hide()
@@ -48,9 +52,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
             includeBottomBtn.apply {
                 cvAddData.setOnClickListener {
-                    Toast.makeText(this@HomeActivity, "STILL IN PROGRESS", Toast.LENGTH_SHORT)
-                        .show()
                     //TODO: OPEN CUSTOM DIALOG
+                    addExpenseBottomDialog.show(
+                        supportFragmentManager,
+                        addExpenseBottomDialog.tag
+                    )
                 }
             }
         }

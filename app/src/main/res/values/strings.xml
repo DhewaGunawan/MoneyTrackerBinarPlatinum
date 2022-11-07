@@ -9,6 +9,15 @@
     <string name="text_submit">Submit</string>
     <string name="loading">Loading</string>
 
+    <!-- || HOME ACTIVITY || -->
+    <string name="home_activity_text_btn_add_expense">Add New Expense</string>
+    <string name="home_activity_text_greeting_topbar">Hello,</string>
+    <!-- NAME OF FILTER LIST -->
+    <string name="today">Today</string>
+    <string name="this_week">This Week</string>
+    <string name="this_month">This Month</string>
+
+
     <string-array name="categories">
         <item>Shopping</item>
         <item>Sport</item>
