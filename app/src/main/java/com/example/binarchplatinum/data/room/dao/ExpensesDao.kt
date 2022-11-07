@@ -2,6 +2,7 @@ package com.example.binarchplatinum.data.room.dao
 
 import androidx.room.*
 import com.example.binarchplatinum.data.room.entity.Expenses
+import com.example.binarchplatinum.data.room.model.CountAndSumExpenses
 import com.example.binarchplatinum.data.room.model.ExpensesWithCategory
 
 @Dao
@@ -20,6 +21,9 @@ interface ExpensesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExpenses(expense: List<Expenses>)
+
+    @Query("SELECT COUNT(*) as count, SUM(price) as sum FROM expenses")
+    suspend fun countAndSumExpenses(): CountAndSumExpenses
 /*
     @Delete
     suspend fun deleteExpense(expense: Expenses) : Int

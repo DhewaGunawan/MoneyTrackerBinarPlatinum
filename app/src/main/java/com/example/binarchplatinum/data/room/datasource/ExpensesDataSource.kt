@@ -2,6 +2,7 @@ package com.example.binarchplatinum.data.room.datasource
 
 import com.example.binarchplatinum.data.room.dao.ExpensesDao
 import com.example.binarchplatinum.data.room.entity.Expenses
+import com.example.binarchplatinum.data.room.model.CountAndSumExpenses
 import com.example.binarchplatinum.data.room.model.ExpensesWithCategory
 
 interface ExpensesDataSource {
@@ -13,6 +14,7 @@ interface ExpensesDataSource {
 
     suspend fun insertExpense(expense: Expenses): Long
 
+    suspend fun countAndSumExpenses(): CountAndSumExpenses
 }
 
 class ExpensesDataSourceImpl(private val dao: ExpensesDao) : ExpensesDataSource {
@@ -32,4 +34,7 @@ class ExpensesDataSourceImpl(private val dao: ExpensesDao) : ExpensesDataSource 
         return dao.insertExpense(expense)
     }
 
+    override suspend fun countAndSumExpenses(): CountAndSumExpenses {
+        return dao.countAndSumExpenses()
+    }
 }

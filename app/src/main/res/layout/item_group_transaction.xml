@@ -39,13 +39,13 @@
                 android:layout_marginHorizontal="12dp"
                 android:fontFamily="@font/inter_semi_bold"
                 android:textColor="@color/off_white_400"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintLeft_toRightOf="@id/iv_ic_category"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Shopping" />
 
             <TextView
-                android:id="@+id/tv_transaction_title"
+                android:id="@+id/tv_total_transaction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lexend_deca_extra_bold"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             tools:text="1200000" />
 
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lexend_deca_medium"
             android:textColor="@color/purple_600"
-            android:textSize="16sp"
+            android:textSize="12sp"
             tools:text="10%" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>
