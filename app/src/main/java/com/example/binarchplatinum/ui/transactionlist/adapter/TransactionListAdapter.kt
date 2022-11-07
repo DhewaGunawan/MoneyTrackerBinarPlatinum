@@ -7,6 +7,8 @@ import com.example.binarchplatinum.R
 import com.example.binarchplatinum.constant.CategoryConstant
 import com.example.binarchplatinum.data.room.model.ExpensesWithCategory
 import com.example.binarchplatinum.databinding.ItemSingleTransactionBinding
+import java.text.NumberFormat
+import java.util.*
 
 class TransactionListAdapter() :
     RecyclerView.Adapter<TransactionListAdapter.TransactionListViewHolder>() {
@@ -28,7 +30,8 @@ class TransactionListAdapter() :
         RecyclerView.ViewHolder(binding.root) {
         fun bindView(item: ExpensesWithCategory) {
             binding.tvTransactionTitle.text = item.expenses.name
-            binding.tvTransactionAmount.text = item.expenses.price.toString()
+            val formatPrice = NumberFormat.getCurrencyInstance(Locale("in", "ID"))
+            binding.tvTransactionAmount.text = formatPrice.format(item.expenses.price)
             binding.tvTransactionDate.text = item.expenses.date
             binding.tvCategory.text = item.category.categoryName
         }

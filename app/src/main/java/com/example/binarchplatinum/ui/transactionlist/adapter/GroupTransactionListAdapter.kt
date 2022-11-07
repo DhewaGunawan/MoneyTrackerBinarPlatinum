@@ -9,6 +9,8 @@ import com.example.binarchplatinum.data.room.entity.Expenses
 import com.example.binarchplatinum.data.room.model.CategoryWithExpenses
 import com.example.binarchplatinum.data.room.model.CountAndSumExpenses
 import com.example.binarchplatinum.databinding.ItemGroupTransactionBinding
+import java.text.NumberFormat
+import java.util.*
 
 class GroupTransactionListAdapter() :
     RecyclerView.Adapter<GroupTransactionListAdapter.TransactionListViewHolder>() {
@@ -25,7 +27,7 @@ class GroupTransactionListAdapter() :
     override fun onBindViewHolder(holder: TransactionListViewHolder, position: Int) {
         holder.bindView(groupedTransactionList[position])
         holder.getCategoryIcon(groupedTransactionList[position].category.categoryName)
-        holder.getTotalPrice(groupedTransactionList[position], totalItemAndPrice[0].sum.toInt())
+        holder.getPercentage(groupedTransactionList[position], totalItemAndPrice[0].sum.toInt())
     }
 
     class TransactionListViewHolder(private val binding: ItemGroupTransactionBinding) :
@@ -33,8 +35,11 @@ class GroupTransactionListAdapter() :
         fun bindView(item: CategoryWithExpenses) {
             binding.tvCategory.text = item.category.categoryName
             binding.tvTotalTransaction.text = "${item.expenses.size.toString()} transactions"
+
             val totalPrice = getTotalPriceByCategory(item.expenses)
-            binding.tvTransactionTotalAmount.text = totalPrice.toString()
+            val formatPrice = NumberFormat.getCurrencyInstance(Locale("in", "ID"))
+
+            binding.tvTransactionTotalAmount.text = formatPrice.format(totalPrice)
         }
 
         fun getCategoryIcon(name: String) {
@@ -63,7 +68,7 @@ class GroupTransactionListAdapter() :
             return total
         }
 
-        fun getTotalPrice(item: CategoryWithExpenses, data: Int?) {
+        fun getPercentage(item: CategoryWithExpenses, data: Int?) {
             data?.let {
                 if (data !== null) {
                     val percentage =
