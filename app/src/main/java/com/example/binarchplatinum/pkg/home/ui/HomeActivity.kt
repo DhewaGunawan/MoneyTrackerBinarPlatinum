@@ -2,6 +2,7 @@ package com.example.binarchplatinum.pkg.home.ui
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.example.binarchplatinum.pkg.home.ui.viewmodel.MainViewModel
 import com.example.binarchplatinum.R
@@ -87,6 +88,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                         addExpenseBottomDialog.tag
                     )
                 }
+            }
+
+            includeChartView.apply {
+                ivHighest.visibility = View.INVISIBLE
             }
         }
 
@@ -209,6 +214,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     private fun getCategoryIcon(name: String) {
         binding.apply {
             includeChartView.apply {
+                ivHighest.visibility = View.VISIBLE
                 when (name) {
                     CategoryConstant.SPORT -> {
                         ivHighest.setImageResource(R.drawable.ic_cat_sport)
