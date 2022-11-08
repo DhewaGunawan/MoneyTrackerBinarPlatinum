@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
+import java.math.BigDecimal
 import java.util.*
 
 @Parcelize
@@ -21,7 +22,7 @@ data class Expenses(
     var name : String,
 
     @ColumnInfo(name = "price")
-    var price: Double,
+    var price: BigDecimal,
 
     @ColumnInfo(name = "Date")
     var date: Date

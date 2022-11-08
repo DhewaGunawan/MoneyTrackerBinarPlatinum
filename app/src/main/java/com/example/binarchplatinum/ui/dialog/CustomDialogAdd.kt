@@ -44,12 +44,12 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
 
         datePicker.onItemClick = {
             dateExpense = it
-            val dateData = DateConverters.longToDate(it)
+            val dateData = Converters.longToDate(it)
             binding.etDate.setText(dateData)
             Log.d("Test", "Converter: $dateExpense}")
         }
         setOnClickListener()
-        binding.etExpense.addCurrencyFormatter("Rp.")
+        binding.etExpense.addCurrencyFormatter("Rp. ")
 
         getInitialData()
     }
@@ -73,7 +73,7 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
 
                 }
                 is Resource.Success -> {
-                    val expense = it.data?.first
+                 /*   val expense = it.data?.first*/
                     val categories = it.data?.second
                     val selectedPos = it.data?.third ?: 0
                     initCategory(
@@ -81,7 +81,7 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
                         selectedPos
                     )
                     Log.d("TAG",it.data.toString())
-                    bindDataToForm(expense)
+                   /* bindDataToForm(expense)*/
                 }
             }
         }
@@ -117,11 +117,12 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
     private fun bindDataToForm(data: ExpenseWithCategory?) {
         data?.let {
 
-            val dateLong = DateConverters.dateToTimestamp(data.expenses.date)
-            val dateString = DateConverters.longToDate(dateLong)
+            val dateLong = Converters.dateToTimestamp(data.expenses.date)
+            val dateString = Converters.longToDate(dateLong)
+            val price = Converters.bigDecimalToString(data.expenses.price)
 
             binding.etName.setText(data.expenses.name)
-            binding.etExpense.setText(data.expenses.price.toString())
+            binding.etExpense.setText(price)
             binding.etDate.setText(dateString)
 
         }
@@ -186,12 +187,13 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
         val nameExpense = binding.etName.text.toString().trim()
         val priceWithFormat  = binding.etExpense.text.toString().trim()
         val cleanPrice = priceWithFormat.replace("[Rp,. ]".toRegex(), "")
+        val priceToBigDecimal = Converters.doubleToBigDecimal(cleanPrice.toDouble())
 
         return Expenses(
             name = nameExpense,
-            price = cleanPrice.toDouble(),
+            price = priceToBigDecimal,
             categoryId = viewModel.selectedCategoryId,
-            date = DateConverters.fromTimestamp(dateExpense)
+            date = Converters.fromTimestamp(dateExpense)
         ).apply {
             Log.d("TAG", this.toString())
             if (isEditAction()) {
