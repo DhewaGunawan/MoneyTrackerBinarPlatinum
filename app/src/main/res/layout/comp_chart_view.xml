@@ -75,7 +75,7 @@
                         android:maxLines="2"
                         android:text="@string/biggest_nexpense"
                         android:textColor="@color/light_purple"
-                        android:textSize="12sp" />
+                        android:textSize="10sp" />
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
