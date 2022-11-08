@@ -7,7 +7,7 @@ import android.os.CountDownTimer
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.binarchplatinum.R
-import com.example.binarchplatinum.pkg.home.data.localpref.UserPreference
+import com.example.binarchplatinum.data.localpref.UserPreference
 import com.example.binarchplatinum.pkg.home.ui.HomeActivity
 import com.example.binarchplatinum.pkg.onboarding.OnboardingActivity
 

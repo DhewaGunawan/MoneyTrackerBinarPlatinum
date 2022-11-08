@@ -20,14 +20,16 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/inter_font"
+                android:text="@string/home_activity_text_greeting_topbar"
                 android:textColor="@color/light_grey"
-                android:textSize="24sp"
-                android:text="@string/home_activity_text_greeting_topbar" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/title_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/inter_font"
                 android:textColor="@color/light_grey"
                 android:textSize="36sp"
                 android:textStyle="bold"

@@ -1,8 +1,8 @@
 package com.example.binarchplatinum.pkg.home.data.room.datasource
 
-import com.example.binarchplatinum.pkg.home.data.room.dao.DetailExpenditureDao
-import com.example.binarchplatinum.pkg.home.data.room.entity.DetailExpenditure
-import com.example.binarchplatinum.pkg.home.data.room.model.DetailExpenditureWithCategory
+import com.example.binarchplatinum.data.room.dao.DetailExpenditureDao
+import com.example.binarchplatinum.data.room.entity.DetailExpenditure
+import com.example.binarchplatinum.data.room.model.DetailExpenditureWithCategory
 
 interface DetailExpenditureDataSource {
     suspend fun getAllDetailExpenditures(): List<DetailExpenditureWithCategory>

@@ -14,6 +14,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabGravity="start"
+        app:tabIndicatorColor="@color/light_grey"
+        app:tabIndicatorFullWidth="false"
         app:tabTextAppearance="@style/Home.Tablayout.Text">
 
         <com.google.android.material.tabs.TabItem

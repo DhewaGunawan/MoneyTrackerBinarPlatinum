@@ -1,4 +1,4 @@
-package com.example.binarchplatinum.pkg.home.data.localpref
+package com.example.binarchplatinum.data.localpref
 
 interface UserPreferenceDataSource {
     fun isSkipIntro(): Boolean

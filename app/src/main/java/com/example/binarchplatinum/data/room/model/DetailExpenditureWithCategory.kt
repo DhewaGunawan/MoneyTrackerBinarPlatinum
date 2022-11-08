@@ -1,10 +1,10 @@
-package com.example.binarchplatinum.pkg.home.data.room.model
+package com.example.binarchplatinum.data.room.model
 
 import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.binarchplatinum.pkg.home.data.room.entity.Category
-import com.example.binarchplatinum.pkg.home.data.room.entity.DetailExpenditure
+import com.example.binarchplatinum.data.room.entity.Category
+import com.example.binarchplatinum.data.room.entity.DetailExpenditure
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

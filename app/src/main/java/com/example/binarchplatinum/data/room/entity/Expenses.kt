@@ -5,13 +5,14 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
+import java.util.*
 
 @Parcelize
 @Entity(tableName = "expenses")
 data class Expenses(
     //id autogenerate
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    var id: Int = 0,
 
     @ColumnInfo(name = "category_id")
     var categoryId: Int = 0,
@@ -23,5 +24,5 @@ data class Expenses(
     var price: Double = 0.0,
 
     @ColumnInfo(name = "Date")
-    var date: String? = null,
+    var date: Date? = null,
 ) : Parcelable

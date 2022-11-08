@@ -154,8 +154,8 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
     private fun bindDataToForm(data: ExpenseWithCategory?) {
         data?.let {
 
-            val dateLong = DateConverters.dateToTimestamp(data.expenses.date)
-            val dateString = DateConverters.longToDate(dateLong)
+            val dateLong = data.expenses.date?.let { it1 -> DateConverters.dateToTimestamp(it1) }
+            val dateString = dateLong?.let { it1 -> DateConverters.longToDate(it1) }
 
             binding.etName.setText(data.expenses.name)
             binding.etExpense.setText(data.expenses.price.toString())

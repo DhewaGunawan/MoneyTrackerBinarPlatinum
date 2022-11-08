@@ -1,4 +1,4 @@
-package com.example.binarchplatinum.pkg.home.data.localpref
+package com.example.binarchplatinum.data.localpref
 
 import android.content.Context
 import android.content.SharedPreferences

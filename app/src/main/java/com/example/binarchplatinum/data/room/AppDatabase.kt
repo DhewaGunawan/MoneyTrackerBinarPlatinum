@@ -23,7 +23,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun categoriesDao(): CategoriesDao
 
     companion object {
-        //TODO name database?
         private const val DB_NAME = "Expenses.db"
         //menyimpan instance Database
         @Volatile

@@ -1,4 +1,4 @@
-package com.example.binarchplatinum.pkg.home.data.room.entity
+package com.example.binarchplatinum.data.room.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

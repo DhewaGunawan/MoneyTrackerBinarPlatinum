@@ -78,7 +78,6 @@
             android:id="@+id/et_expense"
             android:textColor="@color/white"
             android:textSize="14sp"
-            android:maxLength="7"
             android:inputType="number"
             android:fontFamily="@font/inter_font"
             android:layout_width="match_parent"

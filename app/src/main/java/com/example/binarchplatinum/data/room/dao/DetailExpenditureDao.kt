@@ -1,8 +1,8 @@
-package com.example.binarchplatinum.pkg.home.data.room.dao
+package com.example.binarchplatinum.data.room.dao
 
 import androidx.room.*
-import com.example.binarchplatinum.pkg.home.data.room.entity.DetailExpenditure
-import com.example.binarchplatinum.pkg.home.data.room.model.DetailExpenditureWithCategory
+import com.example.binarchplatinum.data.room.entity.DetailExpenditure
+import com.example.binarchplatinum.data.room.model.DetailExpenditureWithCategory
 
 @Dao
 interface DetailExpenditureDao {
