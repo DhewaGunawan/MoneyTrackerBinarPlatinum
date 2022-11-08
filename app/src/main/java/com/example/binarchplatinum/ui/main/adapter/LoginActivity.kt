@@ -1,12 +1,10 @@
-package com.example.binarchplatinum.ui
+package com.example.binarchplatinum.ui.main.adapter
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.preference.Preference
 import android.widget.Toast
-import androidx.annotation.NonNull
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.example.binarchplatinum.MainActivity
+import com.example.binarchplatinum.data.pref.UserPreference
 import com.example.binarchplatinum.databinding.ActivityLoginBinding
 
 
@@ -14,6 +12,9 @@ import com.example.binarchplatinum.databinding.ActivityLoginBinding
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    private val preference: UserPreference by lazy {
+        UserPreference(this@LoginActivity)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
         setOnclickListener()
+        setToken()
 
     }
 
@@ -33,12 +35,16 @@ class LoginActivity : AppCompatActivity() {
             }else{
                 navigateToMenu(name)
             }
-
-            Toast.makeText(this, "Name", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun navigateToMenu(name: String) {
         MainActivity.startActivity(this,name)
+    }
+    private fun setToken(){
+        var username = binding.etName.text.toString().trim()
+        if (username.isEmpty()){
+            preference.getToken()
+        }
     }
 }
