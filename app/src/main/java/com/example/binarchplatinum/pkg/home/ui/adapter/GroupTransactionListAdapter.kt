@@ -1,4 +1,4 @@
-package com.example.binarchplatinum.ui.transactionlist.adapter
+package com.example.binarchplatinum.pkg.home.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -43,24 +43,32 @@ class GroupTransactionListAdapter() :
         }
 
         fun getCategoryIcon(name: String) {
-            if (name == CategoryConstant.SPORT) {
-                binding.ivIcCategory.setImageResource(R.drawable.ic_cat_sport)
-            } else if (name == CategoryConstant.ENTERTAINMENT) {
-                binding.ivIcCategory.setImageResource(R.drawable.ic_cat_entertainment)
-            } else if (name == CategoryConstant.FOOD_AND_DRINK) {
-                binding.ivIcCategory.setImageResource(R.drawable.ic_cat_food_drink)
-            } else if (name == CategoryConstant.GROCERIES) {
-                binding.ivIcCategory.setImageResource(R.drawable.ic_cat_groceries)
-            } else if (name == CategoryConstant.HOME_BILLS) {
-                binding.ivIcCategory.setImageResource(R.drawable.ic_cat_home_bills)
-            } else if (name == CategoryConstant.TRANSPORTATION) {
-                binding.ivIcCategory.setImageResource(R.drawable.ic_cat_transportation)
-            } else {
-                binding.ivIcCategory.setImageResource(R.drawable.ic_cat_shopping)
+            when (name) {
+                CategoryConstant.SPORT -> {
+                    binding.ivIcCategory.setImageResource(R.drawable.ic_cat_sport)
+                }
+                CategoryConstant.ENTERTAINMENT -> {
+                    binding.ivIcCategory.setImageResource(R.drawable.ic_cat_entertainment)
+                }
+                CategoryConstant.FOOD_AND_DRINK -> {
+                    binding.ivIcCategory.setImageResource(R.drawable.ic_cat_food_drink)
+                }
+                CategoryConstant.GROCERIES -> {
+                    binding.ivIcCategory.setImageResource(R.drawable.ic_cat_groceries)
+                }
+                CategoryConstant.HOME_BILLS -> {
+                    binding.ivIcCategory.setImageResource(R.drawable.ic_cat_home_bills)
+                }
+                CategoryConstant.TRANSPORTATION -> {
+                    binding.ivIcCategory.setImageResource(R.drawable.ic_cat_transportation)
+                }
+                else -> {
+                    binding.ivIcCategory.setImageResource(R.drawable.ic_cat_shopping)
+                }
             }
         }
 
-        fun getTotalPriceByCategory(expenses: List<Expenses>): Int {
+        private fun getTotalPriceByCategory(expenses: List<Expenses>): Int {
             var total = 0
             for (item in expenses) {
                 total += (item.price).toInt()
@@ -70,11 +78,9 @@ class GroupTransactionListAdapter() :
 
         fun getPercentage(item: CategoryWithExpenses, data: Int?) {
             data?.let {
-                if (data !== null) {
-                    val percentage =
-                        (getTotalPriceByCategory(item.expenses).toDouble() / data.toDouble()) * 100
-                    binding.tvTransactionPercentage.text = "${Math.round(percentage)}%"
-                }
+                val percentage =
+                    (getTotalPriceByCategory(item.expenses).toDouble() / data.toDouble()) * 100
+                binding.tvTransactionPercentage.text = "${Math.round(percentage)}%"
             }
         }
     }

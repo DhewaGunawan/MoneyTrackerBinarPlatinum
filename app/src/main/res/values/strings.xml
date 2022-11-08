@@ -1,6 +1,37 @@
 <resources>
     <string name="app_name">BINARCHPLATINUM</string>
+    <string name="text_add_new_expense">Add new expense</string>
+    <string name="fill_in_required_info">fill in required info</string>
+    <string name="text_date">Date</string>
+    <string name="text_category">Category</string>
+    <string name="text_name">Name</string>
+    <string name="text_expense">Expense</string>
+    <string name="text_submit">Submit</string>
+    <string name="loading">Loading</string>
+
+    <!-- || SPLASHSCREEN ACTIVITY || -->
     <string name="text_expenditura_logo">Expenditura Logo</string>
     <string name="text_splash_desc_1">Better track your expenses with an ease of a click</string>
     <string name="text_splash_desc_2">Better money management equals better life</string>
+
+    <!-- || HOME ACTIVITY || -->
+    <string name="home_activity_text_btn_add_expense">Add New Expense</string>
+    <string name="home_activity_text_greeting_topbar">Hello,</string>
+    <!-- NAME OF FILTER LIST -->
+    <string name="filter_all_expense">All Transaction</string>
+    <string name="filter_category">By Category</string>
+    <!-- STRING FOR CHART -->
+    <string name="total_expenses">Total Expenses</string>
+    <string name="biggest_nexpense">Biggest\nexpense:</string>
+
+    <!-- || CATEGORIES || -->
+    <string-array name="categories">
+        <item>Shopping</item>
+        <item>Sport</item>
+        <item>Food &amp; drink</item>
+        <item>Transportation</item>
+        <item>Groceries</item>
+        <item>Home Bills</item>
+        <item>Entertainment</item>
+    </string-array>
 </resources>

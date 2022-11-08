@@ -3,6 +3,7 @@ package com.example.binarchplatinum.data.room.dao
 import androidx.room.*
 import com.example.binarchplatinum.data.room.entity.Expenses
 import com.example.binarchplatinum.data.room.model.CountAndSumExpenses
+import com.example.binarchplatinum.data.room.model.ExpenseWithCategory
 import com.example.binarchplatinum.data.room.model.ExpensesWithCategory
 
 @Dao
@@ -14,7 +15,7 @@ interface ExpensesDao {
     suspend fun getExpensesByCategoryId(categoryId: Int): List<Expenses>
 
     @Query("SELECT * FROM expenses WHERE id == :id")
-    suspend fun getExpenseById(id: Int): Expenses
+    suspend fun getExpenseById(id: Int): ExpenseWithCategory
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExpense(expense: Expenses): Long

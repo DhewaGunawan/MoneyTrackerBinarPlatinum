@@ -1,24 +1,27 @@
-package com.example.binarchplatinum.ui.transactionlist
+package com.example.binarchplatinum.pkg.home.ui.transactionlist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.binarchplatinum.MainViewModel
+import com.example.binarchplatinum.pkg.home.ui.viewmodel.MainViewModel
 import com.example.binarchplatinum.base.GenericViewModelFactory
-import com.example.binarchplatinum.constant.CommonConstant
 import com.example.binarchplatinum.constant.ExpenseConstant
 import com.example.binarchplatinum.data.room.model.CategoryWithExpenses
 import com.example.binarchplatinum.data.room.model.ExpensesWithCategory
 import com.example.binarchplatinum.databinding.FragmentTransactionListBinding
 import com.example.binarchplatinum.di.ServiceLocator
-import com.example.binarchplatinum.ui.transactionlist.adapter.GroupTransactionListAdapter
-import com.example.binarchplatinum.ui.transactionlist.adapter.TransactionListAdapter
+import com.example.binarchplatinum.pkg.home.ui.adapter.GroupTransactionListAdapter
+import com.example.binarchplatinum.pkg.home.ui.adapter.TransactionListAdapter
 import com.example.binarchplatinum.wrapper.Resource
 
-class TransactionListFragment : Fragment() {
+class TransactionListFragment(transactionType: String, allTransaction: String) : Fragment() {
     private lateinit var binding: FragmentTransactionListBinding
+
+    private var type = transactionType
+    private var name = allTransaction
 
     private val singleListadapter: TransactionListAdapter by lazy {
         TransactionListAdapter()
@@ -27,7 +30,7 @@ class TransactionListFragment : Fragment() {
         GroupTransactionListAdapter()
     }
 
-    private var type: String? = null
+//    private var type: String? = null
 
     private val viewModel: MainViewModel by lazy {
         GenericViewModelFactory(MainViewModel(ServiceLocator.provideLocalRepository(requireContext()))).create(
@@ -37,16 +40,16 @@ class TransactionListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        type = arguments?.getString(CommonConstant.TRANSACTION_TYPE)
+//        type = arguments?.getString(CommonConstant.TRANSACTION_TYPE)
 
-        initData(type)
+        initData(name)
         observeData()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTransactionListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -70,6 +73,7 @@ class TransactionListFragment : Fragment() {
                 is Resource.Success -> {
                     showGroupedTransactionList(it.data)
                 }
+                else -> {}
             }
         }
         viewModel.expenseResult.observe(this) {
@@ -85,6 +89,7 @@ class TransactionListFragment : Fragment() {
                 is Resource.Success -> {
                     showTransactionList(it.data)
                 }
+                else -> {}
             }
         }
         viewModel.totalItemAndPrice.observe(this) {
@@ -101,11 +106,13 @@ class TransactionListFragment : Fragment() {
                     showTotalTransaction(it.data?.count)
                     groupListadapter.getTotalItemCount(it.data)
                 }
+                else -> {}
             }
         }
     }
 
     private fun initData(name: String?) {
+        Log.d("Testing", "name $name & ${ExpenseConstant.ALL_TRANSACTION_WITH_CATEGORY}")
         if (name == ExpenseConstant.ALL_TRANSACTION_WITH_CATEGORY) {
             viewModel.getAllCategoryWithExpenses()
             viewModel.countAndSumExpenses()
@@ -115,7 +122,7 @@ class TransactionListFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        if (type == ExpenseConstant.ALL_TRANSACTION_WITH_CATEGORY) {
+        if (name == ExpenseConstant.ALL_TRANSACTION_WITH_CATEGORY) {
             binding.rvPeople.adapter = this@TransactionListFragment.groupListadapter
         } else {
             binding.rvPeople.adapter = this@TransactionListFragment.singleListadapter
@@ -142,9 +149,7 @@ class TransactionListFragment : Fragment() {
 
     private fun showTotalTransaction(totalTransaction: Int?) {
         totalTransaction?.let {
-            if (it !== null) {
-                binding.tvTotalTransaction.text = "${it} items"
-            }
+            binding.tvTotalTransaction.text = "$it items"
         }
     }
 }

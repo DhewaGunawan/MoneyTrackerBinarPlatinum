@@ -17,15 +17,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 @Database(entities = [Expenses::class, Category::class], version = 1, exportSchema = true)
-/*@TypeConverters(Converters::class)*/
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun expensesDao(): ExpensesDao
     abstract fun categoriesDao(): CategoriesDao
 
     companion object {
-        //TODO name database?
         private const val DB_NAME = "Expenses.db"
-
 
         //menyimpan instance Database
         @Volatile
