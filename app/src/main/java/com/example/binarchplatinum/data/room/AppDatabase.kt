@@ -24,6 +24,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     companion object {
         private const val DB_NAME = "Expenses.db"
+
         //menyimpan instance Database
         @Volatile
         private var INSTANCE: AppDatabase? = null

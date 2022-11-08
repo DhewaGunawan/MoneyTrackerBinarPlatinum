@@ -58,7 +58,7 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
 
         datePicker.onItemClick = {
             dateExpense = it
-            val dateData = DateConverters.longToDate(it)
+            val dateData = Converters.longToDate(it)
             binding.etDate.setText(dateData)
             Log.d("Test", "Converter: $dateExpense}")
         }
@@ -154,8 +154,8 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
     private fun bindDataToForm(data: ExpenseWithCategory?) {
         data?.let {
 
-            val dateLong = data.expenses.date?.let { it1 -> DateConverters.dateToTimestamp(it1) }
-            val dateString = dateLong?.let { it1 -> DateConverters.longToDate(it1) }
+            val dateLong = data.expenses.date?.let { it1 -> Converters.dateToTimestamp(it1) }
+            val dateString = dateLong?.let { it1 -> Converters.longToDate(it1) }
 
             binding.etName.setText(data.expenses.name)
             binding.etExpense.setText(data.expenses.price.toString())
@@ -232,7 +232,7 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
             name = nameExpense,
             price = cleanPrice.toBigDecimal(),
             categoryId = viewModel.selectedCategoryId,
-            date = DateConverters.fromTimestamp(dateExpense)
+            date = Converters.fromTimestamp(dateExpense)
         ).apply {
             Log.d("TAG", this.toString())
             if (isEditAction()) {

@@ -1,7 +1,7 @@
 package com.example.binarchplatinum.pkg.home.data.room.datasource
 
 import com.example.binarchplatinum.data.room.dao.DetailExpenditureDao
-import com.example.binarchplatinum.data.room.entity.DetailExpenditure
+import com.example.binarchplatinum.data.room.entity.Expenses
 import com.example.binarchplatinum.data.room.model.DetailExpenditureWithCategory
 
 interface DetailExpenditureDataSource {
@@ -9,11 +9,11 @@ interface DetailExpenditureDataSource {
 
     suspend fun getDetailExpenditureByCategoryId(categoryId: Int): List<DetailExpenditureWithCategory>
 
-    suspend fun insertDetailExpenditure(note: DetailExpenditure): Long
+    suspend fun insertDetailExpenditure(note: Expenses): Long
 
-    suspend fun deleteDetailExpenditure(note: DetailExpenditure): Int
+    suspend fun deleteDetailExpenditure(note: Expenses): Int
 
-    suspend fun updateDetailExpenditure(note: DetailExpenditure): Int
+    suspend fun updateDetailExpenditure(note: Expenses): Int
 }
 
 class DetailExpenditureDataSourceImpl(private val dao: DetailExpenditureDao) : DetailExpenditureDataSource {
@@ -25,16 +25,16 @@ class DetailExpenditureDataSourceImpl(private val dao: DetailExpenditureDao) : D
         return dao.getAllDetailExpenditureByCategoryId(categoryId)
     }
 
-    override suspend fun insertDetailExpenditure(detailExpenditure: DetailExpenditure): Long {
-        return dao.insertDetailExpenditure(detailExpenditure)
+    override suspend fun insertDetailExpenditure(expenses: Expenses): Long {
+        return dao.insertDetailExpenditure(expenses)
     }
 
-    override suspend fun deleteDetailExpenditure(detailExpenditure: DetailExpenditure): Int {
-        return dao.deleteDetailExpenditure(detailExpenditure)
+    override suspend fun deleteDetailExpenditure(expenses: Expenses): Int {
+        return dao.deleteDetailExpenditure(expenses)
     }
 
-    override suspend fun updateDetailExpenditure(detailExpenditure: DetailExpenditure): Int {
-        return dao.updateDetailExpenditure(detailExpenditure)
+    override suspend fun updateDetailExpenditure(expenses: Expenses): Int {
+        return dao.updateDetailExpenditure(expenses)
     }
 
 }
