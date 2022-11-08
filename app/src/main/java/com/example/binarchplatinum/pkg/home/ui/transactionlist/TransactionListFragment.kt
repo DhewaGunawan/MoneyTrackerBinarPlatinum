@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.binarchplatinum.MainViewModel
+import com.example.binarchplatinum.pkg.home.ui.viewmodel.MainViewModel
 import com.example.binarchplatinum.base.GenericViewModelFactory
 import com.example.binarchplatinum.constant.ExpenseConstant
 import com.example.binarchplatinum.data.room.model.CategoryWithExpenses

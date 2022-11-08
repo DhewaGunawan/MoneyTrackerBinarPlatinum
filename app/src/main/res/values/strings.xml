@@ -20,6 +20,9 @@
     <!-- NAME OF FILTER LIST -->
     <string name="filter_all_expense">All Transaction</string>
     <string name="filter_category">By Category</string>
+    <!-- STRING FOR CHART -->
+    <string name="total_expenses">Total Expenses</string>
+    <string name="biggest_nexpense">Biggest\nexpense:</string>
 
     <!-- || CATEGORIES || -->
     <string-array name="categories">

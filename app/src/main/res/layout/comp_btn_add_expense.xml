@@ -21,23 +21,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginVertical="8dp"
+            android:gravity="center"
             android:orientation="horizontal"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_btn_plus"
                 android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_btn_plus"
                 tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_primary"
-                android:text="@string/home_activity_text_btn_add_expense"/>
+                android:text="@string/home_activity_text_btn_add_expense"
+                android:textColor="@color/color_primary" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

@@ -2,9 +2,8 @@ package com.example.binarchplatinum.pkg.home.ui
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import com.example.binarchplatinum.MainViewModel
+import com.example.binarchplatinum.pkg.home.ui.viewmodel.MainViewModel
 import com.example.binarchplatinum.R
 import com.example.binarchplatinum.base.BaseActivity
 import com.example.binarchplatinum.base.GenericViewModelFactory
