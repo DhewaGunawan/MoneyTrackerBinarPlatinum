@@ -230,7 +230,7 @@ class CustomDialogAdd : BottomSheetDialogFragment() {
 
         return Expenses(
             name = nameExpense,
-            price = cleanPrice.toDouble(),
+            price = cleanPrice.toBigDecimal(),
             categoryId = viewModel.selectedCategoryId,
             date = DateConverters.fromTimestamp(dateExpense)
         ).apply {
