@@ -1,4 +1,4 @@
-package com.example.binarchplatinum.ui.transactionlist.adapter
+package com.example.binarchplatinum.pkg.home.ui.transactionlist.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

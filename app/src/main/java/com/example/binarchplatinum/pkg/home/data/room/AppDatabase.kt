@@ -6,7 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.binarchplatinum.pkg.home.data.room.dao.CategoriesDao
-import com.example.binarchplatinum.pkg.home.data.room.dao.DetailExpenditureDao
 import com.example.binarchplatinum.pkg.home.data.room.entity.Category
 import com.example.binarchplatinum.pkg.home.data.room.entity.DetailExpenditure
 import kotlinx.coroutines.CoroutineScope

@@ -56,7 +56,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
             includeBottomBtn.apply {
                 cvAddData.setOnClickListener {
-                    //TODO: OPEN CUSTOM DIALOG
                     addExpenseBottomDialog.show(
                         supportFragmentManager,
                         addExpenseBottomDialog.tag

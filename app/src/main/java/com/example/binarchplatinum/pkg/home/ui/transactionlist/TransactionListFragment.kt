@@ -1,4 +1,4 @@
-package com.example.binarchplatinum.ui.transactionlist
+package com.example.binarchplatinum.pkg.home.ui.transactionlist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import com.example.binarchplatinum.base.GenericViewModelFactory
 import com.example.binarchplatinum.data.room.model.ExpensesWithCategory
 import com.example.binarchplatinum.databinding.FragmentTransactionListBinding
 import com.example.binarchplatinum.di.ServiceLocator
-import com.example.binarchplatinum.ui.transactionlist.adapter.TransactionListAdapter
+import com.example.binarchplatinum.pkg.home.ui.transactionlist.adapter.TransactionListAdapter
 import com.example.binarchplatinum.wrapper.Resource
 
 class TransactionListFragment : Fragment() {

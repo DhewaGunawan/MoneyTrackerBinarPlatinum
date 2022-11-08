@@ -20,5 +20,5 @@ data class DetailExpenditure(
     @ColumnInfo(name = "price")
     val price: Double,
     @ColumnInfo(name = "date")
-    val date: String
+    val date: Date
 ) : Parcelable

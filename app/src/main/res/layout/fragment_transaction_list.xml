@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/dark_blue_600"
     android:paddingTop="16dp"
-    tools:context=".ui.transactionlist.TransactionListFragment">
+    tools:context=".pkg.home.ui.transactionlist.TransactionListFragment">
 
     <TextView
         android:id="@+id/tv_title"
