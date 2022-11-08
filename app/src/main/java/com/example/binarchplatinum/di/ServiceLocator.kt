@@ -13,15 +13,11 @@ import com.example.binarchplatinum.data.room.datasource.ExpensesDataSourceImpl
 
 object ServiceLocator {
 
-   /* fun provideUserPreference(context: Context): UserPreference {
-        return UserPreference(context)
-    }
-*/
     fun provideAppDatabase(context: Context): AppDatabase {
         return AppDatabase.getInstance(context)
     }
 
-    fun provideExpenseDao(context: Context): ExpensesDao {
+    fun provideExpensesDao(context: Context): ExpensesDao {
         return provideAppDatabase(context).expensesDao()
     }
 
@@ -29,22 +25,17 @@ object ServiceLocator {
         return provideAppDatabase(context).categoriesDao()
     }
 
-    fun provideExpensesDataSource(context: Context): ExpensesDataSource {
-        return ExpensesDataSourceImpl(provideExpenseDao(context))
+    fun provideExpenseDataSource(context: Context): ExpensesDataSource {
+        return ExpensesDataSourceImpl(provideExpensesDao(context))
     }
 
     fun provideCategoryDataSource(context: Context): CategoryDataSource {
         return CategoryDataSourceImpl(provideCategoryDao(context))
     }
 
-   /* fun provideUserPreferenceDataSource(context: Context): UserPreferenceDataSource {
-        return UserPreferenceDataSourceImpl(provideUserPreference(context))
-    }*/
-
     fun provideLocalRepository(context: Context): LocalRepository {
         return LocalRepositoryImpl(
-          /*  provideUserPreferenceDataSource(context),*/
-            provideExpensesDataSource(context),
+            provideExpenseDataSource(context),
             provideCategoryDataSource(context)
         )
     }

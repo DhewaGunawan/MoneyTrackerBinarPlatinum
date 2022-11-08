@@ -10,7 +10,8 @@ class GenericViewModelFactory(private val viewModel: ViewModel) : ViewModelProvi
         if (modelClass.isAssignableFrom(viewModel::class.java)) {
             return viewModel as T
         }
-        throw IllegalArgumentException("Unknown Class Name")
+
+        throw IllegalAccessException("Unknown Class Name")
     }
 
 }
