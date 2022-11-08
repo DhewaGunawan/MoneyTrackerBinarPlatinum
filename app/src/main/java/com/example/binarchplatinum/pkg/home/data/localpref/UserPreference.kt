@@ -38,6 +38,12 @@ class UserPreference(context: Context) {
         }
     }
 
+    fun clearUserToken() {
+        preference.edit {
+            this.putString(PreferenceKey.PREF_USER_TOKEN.first, "")
+        }
+    }
+
 }
 
 object PreferenceKey {

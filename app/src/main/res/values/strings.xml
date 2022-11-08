@@ -9,15 +9,19 @@
     <string name="text_submit">Submit</string>
     <string name="loading">Loading</string>
 
+    <!-- || SPLASHSCREEN ACTIVITY || -->
+    <string name="text_expenditura_logo">Expenditura Logo</string>
+    <string name="text_splash_desc_1">Better track your expenses with an ease of a click</string>
+    <string name="text_splash_desc_2">Better money management equals better life</string>
+
     <!-- || HOME ACTIVITY || -->
     <string name="home_activity_text_btn_add_expense">Add New Expense</string>
     <string name="home_activity_text_greeting_topbar">Hello,</string>
     <!-- NAME OF FILTER LIST -->
-    <string name="today">Today</string>
-    <string name="this_week">This Week</string>
-    <string name="this_month">This Month</string>
+    <string name="filter_all_expense">All Transaction</string>
+    <string name="filter_category">By Category</string>
 
-
+    <!-- || CATEGORIES || -->
     <string-array name="categories">
         <item>Shopping</item>
         <item>Sport</item>

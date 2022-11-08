@@ -5,6 +5,7 @@ interface UserPreferenceDataSource {
     fun setSkipIntro(isSkipIntro: Boolean)
     fun getUserToken(): String?
     fun setUserToken(username: String)
+    fun clearUserToken()
 }
 
 class UserPreferenceDataSourceImpl(private val preference: UserPreference) :
@@ -24,6 +25,10 @@ class UserPreferenceDataSourceImpl(private val preference: UserPreference) :
 
     override fun setUserToken(username: String) {
         preference.setUserToken(username)
+    }
+
+    override fun clearUserToken() {
+        preference.clearUserToken()
     }
 
 }

@@ -1,17 +1,25 @@
-package com.example.binarchplatinum.ui.splashscreen
+package com.example.binarchplatinum.pkg.splashscreen
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import com.example.binarchplatinum.MainActivity
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.binarchplatinum.R
-import com.example.binarchplatinum.ui.onboarding.OnboardingActivity
+import com.example.binarchplatinum.pkg.home.data.localpref.UserPreference
+import com.example.binarchplatinum.pkg.home.ui.HomeActivity
+import com.example.binarchplatinum.pkg.onboarding.OnboardingActivity
 
+@SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
+    companion object {
+        private const val TAG = "SplashScreenActivity"
+    }
+
     private var timer: CountDownTimer? = null
     private val preference: UserPreference by lazy {
-        UserPreference(this@OnboardingActivity)
+        UserPreference(this@SplashScreenActivity)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +43,8 @@ class SplashScreenActivity : AppCompatActivity() {
             override fun onTick(p0: Long) {}
 
             override fun onFinish() {
-                val destination = if (preference.isSkipIntro()) MainActivity::class.java else OnboardingActivity::class.java
+                Log.d(TAG, "onFinish: ${preference.isSkipIntro()}")
+                val destination = if (preference.isSkipIntro()) HomeActivity::class.java else OnboardingActivity::class.java
                 val intent = Intent(this@SplashScreenActivity, destination)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)

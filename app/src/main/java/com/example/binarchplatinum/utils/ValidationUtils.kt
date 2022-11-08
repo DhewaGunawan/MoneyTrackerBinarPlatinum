@@ -38,14 +38,17 @@ fun EditText.onChange(cb: (String) -> Unit) {
         override fun afterTextChanged(s: Editable?) {
             cb(s.toString())
         }
+
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     })
 }
 
 fun EditText.addCurrencyFormatter(currencyText: String) {
-    this.addTextChangedListener(object: MyTextWatcher{
-        val editTextWeakReference: WeakReference<EditText> = WeakReference<EditText>(this@addCurrencyFormatter)
+    this.addTextChangedListener(object : MyTextWatcher {
+        val editTextWeakReference: WeakReference<EditText> =
+            WeakReference<EditText>(this@addCurrencyFormatter)
+
         override fun afterTextChanged(editable: Editable?) {
             val editText = editTextWeakReference.get() ?: return
             val s = editable.toString()
@@ -59,9 +62,11 @@ fun EditText.addCurrencyFormatter(currencyText: String) {
     })
 }
 
-fun String.monetize(): String = if (this.isEmpty()) "0" else DecimalFormat("#,###").format(this.replace("[^\\d]".toRegex(),"").toLong())
+fun String.monetize(): String = if (this.isEmpty()) "0" else DecimalFormat("#,###").format(
+    this.replace("[^\\d]".toRegex(), "").toLong()
+)
 
-interface MyTextWatcher: TextWatcher {
+interface MyTextWatcher : TextWatcher {
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 }

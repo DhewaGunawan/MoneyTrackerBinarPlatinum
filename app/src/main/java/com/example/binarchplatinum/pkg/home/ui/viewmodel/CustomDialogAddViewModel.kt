@@ -51,11 +51,13 @@ class CustomDialogAddViewModel(private val repository: LocalRepository) : ViewMo
     }
 
 
-    fun insertNote(expenses: Expenses) {
+    fun insertExpense(expenses: Expenses) {
         viewModelScope.launch(Dispatchers.IO) {
             insertResult.postValue(Resource.Loading())
             delay(1000)
             insertResult.postValue(repository.insertExpense(expenses))
+            delay(1000)
+            insertResult.postValue(Resource.Idle())
         }
     }
 

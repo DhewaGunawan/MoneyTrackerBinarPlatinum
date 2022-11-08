@@ -1,17 +1,23 @@
-package com.example.binarchplatinum.ui.onboarding
+package com.example.binarchplatinum.pkg.onboarding
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.binarchplatinum.MainActivity
 import com.example.binarchplatinum.R
-import com.example.binarchplatinum.ui.login.LoginActivity
+import com.example.binarchplatinum.pkg.home.data.localpref.UserPreference
+import com.example.binarchplatinum.pkg.home.ui.HomeActivity
 import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
 
 class OnboardingActivity : AppIntro2() {
+    companion object {
+        private const val TAG = "OnboardingActivity"
+    }
+
+    private val preference: UserPreference by lazy {
+        UserPreference(this@OnboardingActivity)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +57,8 @@ class OnboardingActivity : AppIntro2() {
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-
-        Intent(this@OnboardingActivity, LoginActivity::class.java).also {
+        preference.setSkipIntro(true)
+        Intent(this@OnboardingActivity, HomeActivity::class.java).also {
             startActivity(it)
         }
 

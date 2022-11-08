@@ -18,7 +18,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 
-class HomeDayFragment : Fragment() {
+class HomeAllExpensesFragment : Fragment() {
     companion object {
         private const val TAG = "HomeDayFragment"
     }
