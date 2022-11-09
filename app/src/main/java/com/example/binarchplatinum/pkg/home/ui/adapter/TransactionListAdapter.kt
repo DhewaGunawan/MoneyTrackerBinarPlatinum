@@ -7,6 +7,7 @@ import com.example.binarchplatinum.R
 import com.example.binarchplatinum.constant.CategoryConstant
 import com.example.binarchplatinum.data.room.model.ExpensesWithCategory
 import com.example.binarchplatinum.databinding.ItemSingleTransactionBinding
+import com.example.binarchplatinum.pkg.home.ui.transactionlist.DeleteExpenseListener
 import java.text.NumberFormat
 import java.util.*
 
@@ -14,6 +15,7 @@ class TransactionListAdapter() :
     RecyclerView.Adapter<TransactionListAdapter.TransactionListViewHolder>() {
 
     private var transactionList: MutableList<ExpensesWithCategory> = mutableListOf()
+    var deleteListener: DeleteExpenseListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionListViewHolder {
         val binding =
@@ -24,6 +26,7 @@ class TransactionListAdapter() :
     override fun onBindViewHolder(holder: TransactionListViewHolder, position: Int) {
         holder.bindView(transactionList[position])
         holder.getCategoryIcon(transactionList[position].category.categoryName)
+        holder.deleteItem(transactionList[position].expenses.id, deleteListener)
     }
 
     class TransactionListViewHolder(private val binding: ItemSingleTransactionBinding) :
@@ -58,6 +61,16 @@ class TransactionListAdapter() :
                 }
                 else -> {
                     binding.ivCategory.setImageResource(R.drawable.ic_cat_shopping)
+                }
+            }
+        }
+
+        fun deleteItem(id: Int, listener: DeleteExpenseListener?) {
+            binding.cvIcDelete.setOnClickListener {
+                listener.let {
+                    if (listener !== null) {
+                        listener.onClickDelete(id)
+                    }
                 }
             }
         }

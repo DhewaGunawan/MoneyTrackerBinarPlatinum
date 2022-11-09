@@ -2,10 +2,10 @@ package com.example.binarchplatinum.pkg.home.ui.transactionlist
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.binarchplatinum.R
 import com.example.binarchplatinum.pkg.home.ui.viewmodel.MainViewModel
 import com.example.binarchplatinum.base.GenericViewModelFactory
 import com.example.binarchplatinum.constant.ExpenseConstant
@@ -17,7 +17,8 @@ import com.example.binarchplatinum.pkg.home.ui.adapter.GroupTransactionListAdapt
 import com.example.binarchplatinum.pkg.home.ui.adapter.TransactionListAdapter
 import com.example.binarchplatinum.wrapper.Resource
 
-class TransactionListFragment(transactionType: String, allTransaction: String) : Fragment() {
+class TransactionListFragment(transactionType: String, allTransaction: String) : Fragment(),
+    DeleteExpenseListener {
     private lateinit var binding: FragmentTransactionListBinding
 
     private var type = transactionType
@@ -42,8 +43,10 @@ class TransactionListFragment(transactionType: String, allTransaction: String) :
         super.onCreate(savedInstanceState)
 //        type = arguments?.getString(CommonConstant.TRANSACTION_TYPE)
 
+        singleListadapter.deleteListener = this
         initData(name)
         observeData()
+        observeAfterDelete()
     }
 
     override fun onCreateView(
@@ -57,6 +60,43 @@ class TransactionListFragment(transactionType: String, allTransaction: String) :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+    }
+
+    override fun onClickDelete(id: Int) {
+        viewModel.deleteExpenseById(id)
+    }
+
+    private fun refreshList() {
+        initData(name)
+        observeData()
+    }
+
+    private fun observeAfterDelete() {
+        viewModel.deleteResult.observe(this) {
+            when(it) {
+                is Resource.Error -> {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.error_delete_toast),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                is Resource.Idle -> {
+                    println("observeAfterDelete IDLE")
+                }
+                is Resource.Loading -> {
+                    println("observeAfterDelete LOADING")
+                }
+                is Resource.Success -> {
+                    refreshList()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.success_delete_toast),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun observeData() {
@@ -131,7 +171,7 @@ class TransactionListFragment(transactionType: String, allTransaction: String) :
 
     private fun showTransactionList(data: List<ExpensesWithCategory>?) {
         data?.let { listData ->
-            if (listData.isNotEmpty()) {
+            if (listData.size >= 0) {
                 singleListadapter.setData(listData)
                 showTotalTransaction(singleListadapter.itemCount)
             }
