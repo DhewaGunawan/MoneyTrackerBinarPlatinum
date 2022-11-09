@@ -14,6 +14,24 @@
     <string name="text_splash_desc_1">Better track your expenses with an ease of a click</string>
     <string name="text_splash_desc_2">Better money management equals better life</string>
 
+    <!-- || LOGIN ACTIVITY || -->
+    <string name="login_text">Login</string>
+    <string name="edit_text_username">Username</string>
+    <string name="edit_text_password">Password</string>
+    <string name="button_sign_in">Login</string>
+    <string name="button_sign_up">Don`t have an account? Sign up!</string>
+
+    <!-- || SIGNUP ACTIVITY || -->
+    <string name="sign_up">Sign up</string>
+    <string name="edit_text_password_confirm">Confirm password</string>
+    <string name="button_sign_up_activity">Sign up</string>
+    <string name="password_error_no_password">Please enter password</string>
+    <string name="password_error_short_password">Password should contain more than 5 letters</string>
+    <string name="password_error_password_not_confirmed">Wrong password! Please type again</string>
+    <string name="username_error_no_username">Please enter username</string>
+    <string name="username_error_long_username">Username is too long</string>
+    <string name="login_error_incorrect_input">Username or login is incorrect. Try again or sign up!</string>
+
     <!-- || HOME ACTIVITY || -->
     <string name="home_activity_text_btn_add_expense">Add New Expense</string>
     <string name="home_activity_text_greeting_topbar">Hello,</string>
