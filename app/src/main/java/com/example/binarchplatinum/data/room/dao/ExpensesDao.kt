@@ -25,6 +25,9 @@ interface ExpensesDao {
 
     @Query("SELECT COUNT(*) as count, SUM(price) as sum FROM expenses")
     suspend fun countAndSumExpenses(): CountAndSumExpenses
+
+    @Query("DELETE FROM expenses WHERE id = :id")
+    suspend fun deleteExpenseById(id: Int): Int
 /*
     @Delete
     suspend fun deleteExpense(expense: Expenses) : Int
