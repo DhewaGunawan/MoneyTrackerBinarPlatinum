@@ -1,7 +1,10 @@
 package com.example.binarchplatinum.pkg.home.ui
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.binarchplatinum.pkg.home.ui.viewmodel.MainViewModel
@@ -16,6 +19,7 @@ import com.example.binarchplatinum.data.room.model.CountAndSumExpenses
 import com.example.binarchplatinum.databinding.ActivityHomeBinding
 import com.example.binarchplatinum.di.ServiceLocator
 import com.example.binarchplatinum.pkg.home.ui.adapter.HomeViewPagerAdapter
+import com.example.binarchplatinum.pkg.login.LoginActivity
 import com.example.binarchplatinum.wrapper.Resource
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.Legend
@@ -24,13 +28,36 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import java.text.NumberFormat
 import java.util.*
 
 class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::inflate) {
     companion object {
+        private const val EXTRAS_NAME = "EXTRAS_NAME"
+
+        fun startActivity(context: Context, name: String) {
+            context.startActivity(Intent(context, HomeActivity::class.java).apply {
+                putExtra(EXTRAS_NAME, name)
+            })
+        }
+
         private const val TAG = "HomeActivity"
+    }
+
+    private val dialogLogout by lazy {
+        MaterialAlertDialogBuilder(this@HomeActivity)
+            .setMessage(getString(R.string.logout_text))
+            .setNegativeButton(getString(R.string.lbl_no)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setPositiveButton(R.string.lbl_yes) { _, _ ->
+                preference.clearUserToken()
+                Intent(this@HomeActivity, LoginActivity::class.java).also {
+                    startActivity(it)
+                }
+            }
     }
 
     private val viewModel: MainViewModel by lazy {
@@ -60,11 +87,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         binding.apply {
             includeToolbar.apply {
                 //TODO: TEXT FETCH FROM LOCAL STORAGE
-                titleName.text = "Keanu"
+                Log.d("Testing", "onCreate: ${preference.getUserToken()}")
+                titleName.text = preference.getUserToken()
                 btnLogout.setOnClickListener {
-                    preference.clearUserToken()
-                    Toast.makeText(this@HomeActivity, "STILL IN PROGRESS", Toast.LENGTH_SHORT)
-                        .show()
+                    dialogLogout.show()
                 }
             }
 
@@ -98,13 +124,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                             0 -> getString(R.string.filter_all_expense)
                             1 -> getString(R.string.filter_category)
                             else -> ({
-                            }).toString()}
+                            }).toString()
+                        }
                 }.attach()
             }
         }
     }
 
-    fun refreshData(){
+    fun refreshData() {
         initViewPagerAdapter()
         observeData()
     }
@@ -139,14 +166,21 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                                 var highestPrice = 0
                                 for (item in groupedTransactionList) {
 //                                    Log.d(TAG, "item : ${getTotalPriceByCategory(item.expenses)}")
-                                    if(getTotalPriceByCategory(item.expenses) == 0) else {
-                                        if(highestPrice < getTotalPriceByCategory(item.expenses)) {
+                                    if (getTotalPriceByCategory(item.expenses) == 0) else {
+                                        if (highestPrice < getTotalPriceByCategory(item.expenses)) {
                                             highestPrice = getTotalPriceByCategory(item.expenses)
                                             getCategoryIcon(item.category.categoryName)
                                         }
-                                        val persetage = getPercentage(item, totalItemAndPrice[0].sum.toInt())
+                                        val persetage =
+                                            getPercentage(item, totalItemAndPrice[0].sum.toInt())
 //                                        Log.d(TAG, "observeData: $persetage & $highestPrice")
-                                        add(PieEntry(persetage!!, item.category.categoryName, getTotalPriceByCategory(item.expenses)))
+                                        add(
+                                            PieEntry(
+                                                persetage!!,
+                                                item.category.categoryName,
+                                                getTotalPriceByCategory(item.expenses)
+                                            )
+                                        )
                                     }
                                 }
                                 highestPrice = 0
