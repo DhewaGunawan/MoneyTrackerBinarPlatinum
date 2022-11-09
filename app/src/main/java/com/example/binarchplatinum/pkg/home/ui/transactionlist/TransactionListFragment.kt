@@ -13,6 +13,7 @@ import com.example.binarchplatinum.data.room.model.CategoryWithExpenses
 import com.example.binarchplatinum.data.room.model.ExpensesWithCategory
 import com.example.binarchplatinum.databinding.FragmentTransactionListBinding
 import com.example.binarchplatinum.di.ServiceLocator
+import com.example.binarchplatinum.pkg.home.ui.HomeActivity
 import com.example.binarchplatinum.pkg.home.ui.adapter.GroupTransactionListAdapter
 import com.example.binarchplatinum.pkg.home.ui.adapter.TransactionListAdapter
 import com.example.binarchplatinum.wrapper.Resource
@@ -88,7 +89,7 @@ class TransactionListFragment(transactionType: String, allTransaction: String) :
                     println("observeAfterDelete LOADING")
                 }
                 is Resource.Success -> {
-                    refreshList()
+                    (activity as HomeActivity).refreshData()
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.success_delete_toast),
