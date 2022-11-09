@@ -9,6 +9,7 @@ import com.example.binarchplatinum.data.room.model.ExpensesWithCategory
 import com.example.binarchplatinum.databinding.ItemSingleTransactionBinding
 import com.example.binarchplatinum.pkg.home.ui.transactionlist.DeleteExpenseListener
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class TransactionListAdapter() :
@@ -35,7 +36,8 @@ class TransactionListAdapter() :
             binding.tvTransactionTitle.text = item.expenses.name
             val formatPrice = NumberFormat.getCurrencyInstance(Locale("in", "ID"))
             binding.tvTransactionAmount.text = formatPrice.format(item.expenses.price)
-            binding.tvTransactionDate.text = item.expenses.date.toString()
+            val formatDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            binding.tvTransactionDate.text = formatDate.format(item.expenses.date)
             binding.tvCategory.text = item.category.categoryName
         }
 
