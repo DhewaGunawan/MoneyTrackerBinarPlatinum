@@ -67,7 +67,6 @@ class TransactionListAdapter() :
 
         fun deleteItem(id: Int, listener: DeleteExpenseListener?) {
             binding.cvIcDelete.setOnClickListener {
-                listener?.onClickDelete(id)
                 listener.let {
                     if (listener !== null) {
                         listener.onClickDelete(id)
