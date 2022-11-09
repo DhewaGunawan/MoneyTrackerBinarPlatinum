@@ -107,6 +107,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
             includeChartView.apply {
                 ivHighest.visibility = View.INVISIBLE
+                tvHighest.text = getString(R.string.no_data)
             }
         }
 
@@ -139,13 +140,39 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
     override fun onResume() {
         super.onResume()
         refreshData()
+        Log.d("Testing", "masuk on resume")
     }
 
     private fun subscribeObserver() {
+        Log.d("Testing", "subscribeObserver: masuk")
         observeData()
     }
 
     private fun observeData() {
+        viewModel.countAndSumExpenses()
+        viewModel.totalItemAndPrice.observe(this) {
+            when (it) {
+                is Resource.Error -> {
+                    // do nothing for now
+                    println("Error ${it.message}")
+                }
+                is Resource.Loading -> {
+                    // do nothing for now
+                    println("Loading")
+                }
+                is Resource.Success -> {
+                    getTotalItemCount(it.data)
+                    binding.apply {
+                        includeChartView.apply {
+                            val formatPrice = NumberFormat.getCurrencyInstance(Locale("in", "ID"))
+                            tvTotalPrice.text = formatPrice.format(totalItemAndPrice[0].sum.toInt())
+                        }
+                    }
+                }
+                else -> {}
+            }
+        }
+
         viewModel.getAllCategoryWithExpenses()
         viewModel.categoryWithExpensesResult.observe(this) {
             when (it) {
@@ -158,6 +185,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                     println("Loading")
                 }
                 is Resource.Success -> {
+                    var isDataExist = false
+                    groupedTransactionList.clear()
                     showGroupedTransactionList(it.data)
                     binding.apply {
                         includeChartView.apply {
@@ -165,15 +194,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                             entries.apply {
                                 var highestPrice = 0
                                 for (item in groupedTransactionList) {
-//                                    Log.d(TAG, "item : ${getTotalPriceByCategory(item.expenses)}")
                                     if (getTotalPriceByCategory(item.expenses) == 0) else {
+                                        isDataExist = true
                                         if (highestPrice < getTotalPriceByCategory(item.expenses)) {
                                             highestPrice = getTotalPriceByCategory(item.expenses)
                                             getCategoryIcon(item.category.categoryName)
                                         }
                                         val persetage =
                                             getPercentage(item, totalItemAndPrice[0].sum.toInt())
-//                                        Log.d(TAG, "observeData: $persetage & $highestPrice")
                                         add(
                                             PieEntry(
                                                 persetage!!,
@@ -206,34 +234,14 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                             piechart.animateY(1400, Easing.EaseInOutQuad)
                         }
                     }
-                }
-                else -> {}
-            }
-        }
-
-        viewModel.countAndSumExpenses()
-        viewModel.totalItemAndPrice.observe(this) {
-            when (it) {
-                is Resource.Error -> {
-                    // do nothing for now
-                    println("Error ${it.message}")
-                }
-                is Resource.Loading -> {
-                    // do nothing for now
-                    println("Loading")
-                }
-                is Resource.Success -> {
-                    getTotalItemCount(it.data)
-                    binding.apply {
-                        includeChartView.apply {
-                            val formatPrice = NumberFormat.getCurrencyInstance(Locale("in", "ID"))
-                            tvTotalPrice.text = formatPrice.format(totalItemAndPrice[0].sum.toInt())
-                        }
+                    if (!isDataExist) {
+                        getCategoryIcon("blank")
                     }
                 }
                 else -> {}
             }
         }
+
         setupPieChart()
     }
 
@@ -265,6 +273,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         binding.apply {
             includeChartView.apply {
                 ivHighest.visibility = View.VISIBLE
+                Log.d("Testing", "getCategoryIcon: $name")
                 when (name) {
                     CategoryConstant.SPORT -> {
                         ivHighest.setImageResource(R.drawable.ic_cat_sport)
@@ -289,6 +298,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                     CategoryConstant.TRANSPORTATION -> {
                         ivHighest.setImageResource(R.drawable.ic_cat_transportation)
                         tvHighest.text = name
+                    }
+                    "blank" -> {
+                        ivHighest.visibility = View.INVISIBLE
+                        tvHighest.text = getString(R.string.no_data)
                     }
                     else -> {
                         ivHighest.setImageResource(R.drawable.ic_cat_shopping)

@@ -89,12 +89,12 @@ class TransactionListFragment(transactionType: String, allTransaction: String) :
                     println("observeAfterDelete LOADING")
                 }
                 is Resource.Success -> {
-                    (activity as HomeActivity).refreshData()
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.success_delete_toast),
                         Toast.LENGTH_LONG
                     ).show()
+                    (activity as HomeActivity).refreshData()
                 }
             }
         }

@@ -49,6 +49,7 @@
     <string name="biggest_nexpense">Biggest\nexpense:</string>
     <string name="success_delete_toast">Successfully delete expense!</string>
     <string name="error_delete_toast">Unable to delete data</string>
+    <string name="no_data">No Data</string>
 
     <!-- || CATEGORIES || -->
     <string-array name="categories">
