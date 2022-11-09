@@ -14,7 +14,7 @@ interface LocalRepository {
     suspend fun getAllExpenses(): Resource<List<ExpensesWithCategory>>
     suspend fun getAllCategoryWithExpenses(): Resource<List<CategoryWithExpenses>>
     suspend fun countAndSumExpenses(): Resource<CountAndSumExpenses>
-    suspend fun getExpenseById(id : Int): Resource<ExpenseWithCategory>
+    suspend fun getExpenseById(id : Int): Resource<ExpensesWithCategory>
     suspend fun getAllCategories(): Resource<List<Category>>
     suspend fun insertExpense(expenses: Expenses): Resource<Number>
 }
@@ -35,7 +35,7 @@ class LocalRepositoryImpl(
         return proceed { expensesDataSource.countAndSumExpenses() }
     }
 
-    override suspend fun getExpenseById(id: Int): Resource<ExpenseWithCategory> {
+    override suspend fun getExpenseById(id: Int): Resource<ExpensesWithCategory> {
         return proceed { expensesDataSource.getExpenseById(id) }
     }
 

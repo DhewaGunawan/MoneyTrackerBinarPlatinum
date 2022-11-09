@@ -68,18 +68,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
                 }
             }
 
-            includeListFilter.apply {
-                _viewPagerAdapter = HomeViewPagerAdapter(supportFragmentManager, lifecycle)
-                viewPager.adapter = viewPagerAdapter
-                TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                    tab.text =
-                        when (position) {
-                            0 -> getString(R.string.filter_all_expense)
-                            1 -> getString(R.string.filter_category)
-                            else -> ({
-                            }).toString()}
-                }.attach()
-            }
+            initViewPagerAdapter()
 
             includeBottomBtn.apply {
                 cvAddData.setOnClickListener {
@@ -96,6 +85,33 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
         }
 
         subscribeObserver()
+    }
+
+    private fun initViewPagerAdapter() {
+        binding.apply {
+            includeListFilter.apply {
+                _viewPagerAdapter = HomeViewPagerAdapter(supportFragmentManager, lifecycle)
+                viewPager.adapter = viewPagerAdapter
+                TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                    tab.text =
+                        when (position) {
+                            0 -> getString(R.string.filter_all_expense)
+                            1 -> getString(R.string.filter_category)
+                            else -> ({
+                            }).toString()}
+                }.attach()
+            }
+        }
+    }
+
+    fun refreshData(){
+        initViewPagerAdapter()
+        observeData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshData()
     }
 
     private fun subscribeObserver() {
@@ -280,7 +296,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(ActivityHomeBinding::infl
 
     private fun getPercentage(item: CategoryWithExpenses, data: Int?): Float? {
         val let = data?.let {
-                ((getTotalPriceByCategory(item.expenses).toDouble() / data.toDouble()) * 100).toFloat()
+            ((getTotalPriceByCategory(item.expenses).toDouble() / data.toDouble()) * 100).toFloat()
         }
         return let
     }

@@ -11,7 +11,7 @@ interface ExpensesDataSource {
 
     suspend fun getExpensesByCategoryId(categoryId: Int): List<Expenses>
 
-    suspend fun getExpenseById(id: Int): ExpenseWithCategory
+    suspend fun getExpenseById(id: Int): ExpensesWithCategory
 
     suspend fun insertExpense(expense: Expenses): Long
 
@@ -27,7 +27,7 @@ class ExpensesDataSourceImpl(private val dao: ExpensesDao) : ExpensesDataSource 
         return dao.getExpensesByCategoryId(id)
     }
 
-    override suspend fun getExpenseById(id: Int): ExpenseWithCategory {
+    override suspend fun getExpenseById(id: Int): ExpensesWithCategory {
         return dao.getExpenseById(id)
     }
 

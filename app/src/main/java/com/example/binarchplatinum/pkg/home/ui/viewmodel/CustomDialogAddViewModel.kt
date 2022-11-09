@@ -9,13 +9,14 @@ import com.example.binarchplatinum.data.repository.LocalRepository
 import com.example.binarchplatinum.data.room.entity.Category
 import com.example.binarchplatinum.data.room.entity.Expenses
 import com.example.binarchplatinum.data.room.model.ExpenseWithCategory
+import com.example.binarchplatinum.data.room.model.ExpensesWithCategory
 import com.example.binarchplatinum.wrapper.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-typealias InitialDataResultType = Resource<Triple<ExpenseWithCategory?, List<Category>, Int>>
+typealias InitialDataResultType = Resource<Triple<ExpensesWithCategory?, List<Category>, Int>>
 
 class CustomDialogAddViewModel(private val repository: LocalRepository) : ViewModel() {
 
@@ -25,8 +26,6 @@ class CustomDialogAddViewModel(private val repository: LocalRepository) : ViewMo
     val initialDataResult = MutableLiveData<InitialDataResultType>()
 
     val insertResult = MutableLiveData<Resource<Number>>()
-   /* val deleteResult = MutableLiveData<Resource<Number>>()
-    val updateResult = MutableLiveData<Resource<Number>>()*/
 
     fun getInitialData() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -59,26 +58,5 @@ class CustomDialogAddViewModel(private val repository: LocalRepository) : ViewMo
             delay(1000)
             insertResult.postValue(Resource.Idle())
         }
-    }
-
-
-   /* fun deleteNote(expenses: Expenses) {
-        viewModelScope.launch(Dispatchers.IO) {
-            deleteResult.postValue(Resource.Loading())
-            delay(1000)
-            deleteResult.postValue(repository.deleteExpense(expenses))
-        }
-    }
-
-    fun updateNote(expenses: Expenses) {
-        viewModelScope.launch(Dispatchers.IO) {
-            updateResult.postValue(Resource.Loading())
-            delay(1000)
-            updateResult.postValue(repository.updateExpense(expenses))
-        }
-    }*/
-
-    fun setIntentData(intent: Intent) {
-        expenseId = intent.getIntExtra(CommonConstant.EXTRAS_ID_EXPENSE, CommonConstant.UNSET_ID)
     }
 }
