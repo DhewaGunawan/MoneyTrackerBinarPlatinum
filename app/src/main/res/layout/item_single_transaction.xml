@@ -81,16 +81,33 @@
         android:id="@+id/tv_transaction_amount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
         android:fontFamily="@font/lexend_deca_extra_bold"
         android:gravity="end"
         android:maxLines="1"
         android:textColor="@color/white"
         android:textSize="13sp"
         android:textStyle="bold"
-        android:ellipsize="end"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cv_ic_delete"
         app:layout_constraintLeft_toRightOf="@id/guideline"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="1200000" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_ic_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/dark_purple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_transaction_amount">
+
+        <ImageView
+            android:id="@+id/iv_ic_delete"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_delete" />
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

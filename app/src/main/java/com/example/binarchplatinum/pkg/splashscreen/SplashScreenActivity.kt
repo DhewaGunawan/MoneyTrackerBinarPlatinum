@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.binarchplatinum.R
 import com.example.binarchplatinum.data.localpref.UserPreference
 import com.example.binarchplatinum.pkg.home.ui.HomeActivity
+import com.example.binarchplatinum.pkg.login.LoginActivity
 import com.example.binarchplatinum.pkg.onboarding.OnboardingActivity
 
 @SuppressLint("CustomSplashScreen")
@@ -44,7 +45,15 @@ class SplashScreenActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 Log.d(TAG, "onFinish: ${preference.isSkipIntro()}")
-                val destination = if (preference.isSkipIntro()) HomeActivity::class.java else OnboardingActivity::class.java
+                val destination =
+                    if (preference.isSkipIntro()) {
+                        if (preference.getUserToken() == "" || preference.getUserToken().isNullOrBlank())
+                            LoginActivity::class.java
+                        else
+                            HomeActivity::class.java
+                    } else {
+                        OnboardingActivity::class.java
+                    }
                 val intent = Intent(this@SplashScreenActivity, destination)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)

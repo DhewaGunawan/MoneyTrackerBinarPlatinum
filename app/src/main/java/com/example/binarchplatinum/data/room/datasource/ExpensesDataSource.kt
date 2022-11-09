@@ -11,11 +11,13 @@ interface ExpensesDataSource {
 
     suspend fun getExpensesByCategoryId(categoryId: Int): List<Expenses>
 
-    suspend fun getExpenseById(id: Int): ExpenseWithCategory
+    suspend fun getExpenseById(id: Int): ExpensesWithCategory
 
     suspend fun insertExpense(expense: Expenses): Long
 
     suspend fun countAndSumExpenses(): CountAndSumExpenses
+
+    suspend fun deleteExpenseById(id: Int): Int
 }
 
 class ExpensesDataSourceImpl(private val dao: ExpensesDao) : ExpensesDataSource {
@@ -27,7 +29,7 @@ class ExpensesDataSourceImpl(private val dao: ExpensesDao) : ExpensesDataSource 
         return dao.getExpensesByCategoryId(id)
     }
 
-    override suspend fun getExpenseById(id: Int): ExpenseWithCategory {
+    override suspend fun getExpenseById(id: Int): ExpensesWithCategory {
         return dao.getExpenseById(id)
     }
 
@@ -37,5 +39,9 @@ class ExpensesDataSourceImpl(private val dao: ExpensesDao) : ExpensesDataSource 
 
     override suspend fun countAndSumExpenses(): CountAndSumExpenses {
         return dao.countAndSumExpenses()
+    }
+
+    override suspend fun deleteExpenseById(id: Int): Int {
+        return dao.deleteExpenseById(id)
     }
 }

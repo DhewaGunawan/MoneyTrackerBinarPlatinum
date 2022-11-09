@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.example.binarchplatinum.R
 import com.example.binarchplatinum.data.localpref.UserPreference
 import com.example.binarchplatinum.pkg.home.ui.HomeActivity
+import com.example.binarchplatinum.pkg.login.LoginActivity
 import com.github.appintro.AppIntro2
 import com.github.appintro.AppIntroFragment
 
@@ -58,7 +59,7 @@ class OnboardingActivity : AppIntro2() {
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
         preference.setSkipIntro(true)
-        Intent(this@OnboardingActivity, HomeActivity::class.java).also {
+        Intent(this@OnboardingActivity, LoginActivity::class.java).also {
             startActivity(it)
         }
 

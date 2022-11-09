@@ -109,7 +109,7 @@
                                 android:fontFamily="@font/inter_font"
                                 android:textColor="@color/light_purple"
                                 android:textSize="10sp"
-                                tools:text="Groceries" />
+                                tools:text="@string/no_data" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
